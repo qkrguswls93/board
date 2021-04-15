@@ -16,4 +16,9 @@ public interface BoardMapper {
 	public List<BoardVo> getList();
 	
 	public int insertBoard(BoardVo vo); 
+	
+	public BoardVo get(int bno);
+	
+	//업데이트,작성,삭제는  int반환
+	public int update(BoardVo vo);
 }

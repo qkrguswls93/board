@@ -25,4 +25,13 @@
 			values (#{bno}, #{title}, #{content}, #{writer}, sysdate)
 	</insert>
 	
+	<select id="get" resultType="jmp.spring.vo.BoardVo">
+		select * from tbl_board where bno=#{bno}
+	</select>
+	
+	<update id="update">
+		update tbl_board
+		set title=#{title},content=#{content},writer=#{writer},updatedate=sysdate
+		where bno=#{bno}
+	</update>
 </mapper>
