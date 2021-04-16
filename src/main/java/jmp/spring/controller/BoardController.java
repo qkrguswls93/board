@@ -18,11 +18,44 @@ public class BoardController {
 	@Autowired
 	BoardService service;
 	
+	@GetMapping("/board/delete")
+	public String deleteExe(BoardVo vo, RedirectAttributes rttr) {
+		int res = service.delete(vo.getBno());
+		String resMsg = "";
+		if(res>0 ) {
+			resMsg="삭제되었습니다.";
+			return "redirect:/board/list";
+		}else {
+			resMsg="삭제에 실패했습니다.";
+		}
+		rttr.addAttribute("bno",vo.getBno());
+		rttr.addFlashAttribute("resMsg",resMsg);
+			return "redirect:/board/get?bno=vo.getBno()";
+
+	}
+	
+	//수정하기
+	@PostMapping("/board/edit")
+	public String editExe(BoardVo vo, RedirectAttributes rttr) { //매개변수로 자동수집
+		
+		int res = service.update(vo);
+		String resMsg = "";
+		if(res>0 ) {
+			resMsg="수정되었습니다.";
+		}else {
+			resMsg="수정을 실패했습니다.";
+		}
+		rttr.addAttribute("bno", vo.getBno());
+		rttr.addFlashAttribute("resMsg",resMsg);
+		return "redirect:/board/get"; //수정 후 get으로 돌아간다. list로 보내려면 return "redirect:/board/list"로
+	}
+	
+	//상세화면
 	@GetMapping({"/board/get","board/edit"})
 	public void get(BoardVo vo, Model model) {
-		log.info(vo.getBno());
+		log.info("======="+vo.getBno());
 		//상세화면조회
-		log.info(vo.getBno());	
+		log.info("======="+vo.getBno());	
 		model.addAttribute("vo",service.get(vo.getBno()));
 		
 		
@@ -46,7 +79,7 @@ public class BoardController {
 		return "redirect:/board/list";
 	}
 	
-	
+	//리스트
 	@GetMapping("/board/list")
 	public void getList(Model model) {
 		

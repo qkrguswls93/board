@@ -7,11 +7,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>수정페이지</title>
 </head>
 <body>
+<script type="text/javascript">
+if('${resMsg}'!=''){
+	alert('${resMsg}');
+}
+</script>
 <h1>게시판</h1>
-<form method="post" action="/board/register">
+<form method="post" action="/board/edit">
 
 	<input type=text name=bno value=${vo.bno}>
 	<table border = 1>

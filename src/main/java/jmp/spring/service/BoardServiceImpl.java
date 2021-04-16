@@ -16,26 +16,32 @@ public class BoardServiceImpl implements BoardService {
 	
 	@Override
 	public List<BoardVo> getList() {
-		// TODO Auto-generated method stub
 		return mapper.getList();
 	}
 
 	@Override
 	public int insertBoard(BoardVo vo) {
-		// TODO Auto-generated method stub
 		return mapper.insertBoard(vo);
 	}
 
 	@Override
 	public BoardVo get(int bno) {
-		// TODO Auto-generated method stub
 		return mapper.get(bno);
 	}
 
 	@Override
 	public int update(BoardVo vo) {
-		// TODO Auto-generated method stub
 		return mapper.update(vo);
 	}
+
+	@Override
+	public int delete(int bno) {
+		return mapper.delete(bno);
+	}
+
+	
+	
+
+	
 
 }

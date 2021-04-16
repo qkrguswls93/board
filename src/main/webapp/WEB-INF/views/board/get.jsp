@@ -7,12 +7,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>상세화면</title>
 </head>
 <body>
+<script type="text/javascript">
+if('${resMsg}'!=''){
+	alert('${resMsg}');
+}
+</script>
 <h1>게시판</h1>
-<form method="post" action="/board/register">
-
+${resMsg}
 	<table border = 1>
 		
 		<tr>
@@ -25,8 +29,10 @@
 		
 	</table>
 
-	<input type=submit>
-</form>
+	<button type="button" onclick="location.href='/board/list'">목록</button>
+	<button type="button" onclick="location.href='/board/edit?bno=${vo.bno}'">수정</button>
+	<button type="button" onclick="location.href='/board/delete?bno=${vo.bno}'">삭제</button>
+
 
 
 

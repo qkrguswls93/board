@@ -21,4 +21,6 @@ public interface BoardMapper {
 	
 	//업데이트,작성,삭제는  int반환
 	public int update(BoardVo vo);
+	
+	public int delete(int bno);
 }

@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>목록조회</title>
 </head>
 <body>
 <script type="text/javascript">
@@ -21,7 +21,7 @@ ${resMsg}
 	<c:forEach items="${list }" var="list">
 	<tr>
 		<td>${list.bno }</td>
-		<td><c:out value="${list.title }"/></td>
+		<td><a href="/board/get?bno=${list.bno }"><c:out value="${list.title }"/></a></td>
 		<td><c:out value="${list.writer }"/></td>
 		<td><c:out value="${list.regdate }"/></td>
 	</tr>

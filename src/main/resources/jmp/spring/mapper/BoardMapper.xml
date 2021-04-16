@@ -34,4 +34,9 @@
 		set title=#{title},content=#{content},writer=#{writer},updatedate=sysdate
 		where bno=#{bno}
 	</update>
+	
+	<delete id="delete" parameterType="int">
+		DELETE from tbl_board
+			WHERE bno=#{bno}
+	</delete>
 </mapper>

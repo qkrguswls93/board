@@ -23,6 +23,11 @@ public class ServiceTest {
 	BoardMapper mapper;
 	
 	@Test
+	public void deleteMapper() {
+		int res = service.delete(308);
+		
+	}
+	@Test
 	public void updateMapper() {
 		BoardVo vo = new BoardVo();
 		vo.setBno(88);
