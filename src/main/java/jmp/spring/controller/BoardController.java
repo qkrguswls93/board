@@ -9,6 +9,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jmp.spring.service.BoardService;
 import jmp.spring.vo.BoardVo;
+import jmp.spring.vo.Criteria;
+import jmp.spring.vo.PageNavi;
 import lombok.extern.log4j.Log4j;
 
 @Controller
@@ -23,14 +25,14 @@ public class BoardController {
 		int res = service.delete(vo.getBno());
 		String resMsg = "";
 		if(res>0 ) {
-			resMsg="삭제되었습니다.";
+			resMsg=vo.getBno()+"번 게시글이 삭제되었습니다.";
 			return "redirect:/board/list";
 		}else {
 			resMsg="삭제에 실패했습니다.";
-		}
-		rttr.addAttribute("bno",vo.getBno());
-		rttr.addFlashAttribute("resMsg",resMsg);
+			rttr.addAttribute("bno",vo.getBno());
+			rttr.addFlashAttribute("resMsg",resMsg);
 			return "redirect:/board/get?bno=vo.getBno()";
+		}
 
 	}
 	
@@ -51,19 +53,30 @@ public class BoardController {
 	}
 	
 	//상세화면
-	@GetMapping({"/board/get","board/edit"})
-	public void get(BoardVo vo, Model model) {
+	@GetMapping({"/board/get"})
+	public String get(BoardVo vo, Model model) {
 		log.info("======="+vo.getBno());
 		//상세화면조회
 		log.info("======="+vo.getBno());	
 		model.addAttribute("vo",service.get(vo.getBno()));
 		
+		return "/board/get_b";
+	}
+	
+	@GetMapping({"board/edit"})
+	public String edit(BoardVo vo, Model model) {
+		log.info("======="+vo.getBno());
+		//상세화면조회
+		log.info("======="+vo.getBno());	
+		model.addAttribute("vo",service.get(vo.getBno()));
 		
+		return "/board/edit_b";
 	}
 	
 	//1. 등록페이지로 이동
 	@GetMapping("/board/register")
-	public void insert() {
+	public String insert() {
+		return "/board/register_b";
 	}
 	
 	@PostMapping("/board/register")
@@ -81,12 +94,14 @@ public class BoardController {
 	
 	//리스트
 	@GetMapping("/board/list")
-	public void getList(Model model) {
+	public String getList(Criteria cri, Model model) {
 		
 		
-		model.addAttribute("list",service.getList());
-		
+		model.addAttribute("list",service.getList(cri));
+		model.addAttribute("pageNavi", new PageNavi(cri, service.getTotal()));
 		log.info("getList()================");
+		
+		return "/board/list_b";
 	}
 	
 }

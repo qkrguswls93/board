@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Select;
 
 import jmp.spring.vo.BoardVo;
+import jmp.spring.vo.Criteria;
 
 public interface BoardMapper {
 	
@@ -13,7 +14,7 @@ public interface BoardMapper {
 	
 	public String getTime2();
 	
-	public List<BoardVo> getList();
+	public List<BoardVo> getList(Criteria cri);
 	
 	public int insertBoard(BoardVo vo); 
 	
@@ -23,4 +24,6 @@ public interface BoardMapper {
 	public int update(BoardVo vo);
 	
 	public int delete(int bno);
+	
+	public int getTotal();
 }

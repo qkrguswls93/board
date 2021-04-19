@@ -1,5 +1,7 @@
 package jmp.spring.board;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import jmp.spring.mapper.BoardMapper;
 import jmp.spring.service.BoardService;
 import jmp.spring.vo.BoardVo;
+import jmp.spring.vo.Criteria;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
@@ -21,6 +24,20 @@ public class ServiceTest {
 	
 	@Autowired
 	BoardMapper mapper;
+	
+	@Test
+	public void getTotal() {
+		log.info("========="+service.getTotal());
+	}
+	
+	@Test
+	public void getList() {
+		Criteria cri = new Criteria();
+		List<BoardVo> list = service.getList(cri);
+				//mapper.getList(cri);
+		
+		log.info("========"+list);
+	}
 	
 	@Test
 	public void deleteMapper() {
@@ -66,9 +83,5 @@ public class ServiceTest {
 		log.info("service.insertBoard=============:"+service.insertBoard(vo));
 	}
 	
-	@Test
-	public void service() {
-		
-		log.info("service==============="+service.getList());
-	}
+	
 }
