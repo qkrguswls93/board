@@ -6,6 +6,20 @@
 if('${resMsg}'!=''){
 	alert('${resMsg}');
 }
+
+function page(page){
+	//location.href = "/board/list?pageNo="+page;
+	document.listForm.action = "/board/list";
+	document.listForm.pageNo.value = page;
+	document.listForm.submit();
+}
+
+//상세보기 이동
+function detail(bno){
+	document.listForm.action="/board/get";
+	document.listForm.bno.value=bno;
+	document.listForm.submit();
+} 
 </script>
 
   <div id="page-wrapper">
@@ -23,7 +37,7 @@ if('${resMsg}'!=''){
 					<button type="button" class="btn btn-default" onclick="location.href='/board/register'">등록</button>                 </div>
                  <!-- /.panel-heading -->
                  <div class="panel-body">
-                     <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                     <table width="100%" class="table table-striped table-bordered table-hover">
                          <thead>
                              <tr>
                                  <th>번호</th>
@@ -36,7 +50,7 @@ if('${resMsg}'!=''){
                              <c:forEach items="${list }" var="vo">                         
                              <tr class="odd gradeX">
                                  <td>${vo.bno }</td>
-                                 <td><a href="/board/get?bno=${vo.bno }">${vo.title }</td>
+                                 <td onclick=detail(${vo.bno })><a href="#">${vo.title }</a></td>
                                  <td>${vo.writer }</td>
                                  <td class="center">${vo.regdate }</td>
                              </tr> 
@@ -44,13 +58,63 @@ if('${resMsg}'!=''){
                         
                          </tbody>
                      </table>
-                     ${pageNavi }
-                     <c:if test="${pageNavi.prev}">${pageNavi.startPage-1 } <이전 </c:if>
-                    <c:forEach begin="${pageNavi.startPage }" end="${pageNavi.endPage }" var="page" >
-                    ${page }
-                    </c:forEach>
-                     <c:if test="${pageNavi.next }">${pageNavi.endPage+1 } 다음> </c:if>
-					
+                     
+                     <!-- 페이지 처리 -->
+				   <nav aria-label="Page navigation example">
+				   
+				  <ul class="pagination">
+				  <c:if test="${pageNavi.prev }">
+				   <li class="page-item" onclick="javascript:page(${pageNavi.startPage-1});">
+				      <a class="page-link"  href="#" aria-label="Previous">
+				        <span aria-hidden="true">&laquo;</span>
+				        <span class="sr-only">Previous</span>
+				      </a>
+				    </li>
+				   </c:if>
+				    <c:forEach begin="${pageNavi.startPage }" end="${pageNavi.endPage }" var="page">
+				    <c:choose>
+				     <c:when test="${page eq pageNavi.cri.pageNo }">
+				     	<li class="page-item active" onclick="page(${page })">
+				     		<a class="page-link" href="#" >${page } <span class="sr-only"/></a>
+				     	</li>  
+				     </c:when>
+				  	<c:otherwise>
+					    <li class="page-item" onclick="page(${page })"><a class="page-link" href="#">${page } </a></li>
+					    </c:otherwise>
+					   </c:choose>  
+					 </c:forEach>   
+				    <c:if test="${pageNavi.next }">
+					    <li class="page-item" onclick="page(${pageNavi.endPage+1 });">
+					      <a class="page-link" href="#" aria-label="Next">
+					        <span aria-hidden="true">&raquo;</span>
+					        <span class="sr-only">Next</span>
+					      </a>
+					    </li>
+				    </c:if>
+				  </ul>
+				</nav>
+				<!-- 페이지 끝 -->
+				
+				<!-- 검색 -->
+				<form method=get action=/board/list name=listForm>
+                    <input type=hidden name=bno>
+           			<input type=hidden name=pageNo value=${pageNavi.cri.pageNo }>
+				
+				<div class="form-inline">
+                    <select class="form-control" name=type>
+                    
+                        <option value=title><c:if test="${pageNavi.cri.type == 'title' }"></c:if>제목</option>
+                        <option value=content selected><c:if test="${pageNavi.cri.type == 'content' }"></c:if>내용</option>
+                        <option value=writer><c:if test="${pageNavi.cri.type == 'writer' }"></c:if>작성자</option>
+                       
+                    </select>
+
+					<input class="form-control" name=keyword value=${pageNavi.cri.keyword }>
+                   <button type="submit" class="btn btn-default" >검색</button>
+                         
+  				</div>
+					</form>
+					<!-- 검색 끝 -->
                  </div>
                  <!-- /.panel-body -->
              </div>

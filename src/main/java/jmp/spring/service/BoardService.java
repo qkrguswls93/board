@@ -17,6 +17,6 @@ public interface BoardService {
 	
 	public int delete(int bno);
 	
-	public int getTotal();
+	public int getTotal(Criteria cri);
 	
 }

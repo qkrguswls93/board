@@ -98,7 +98,7 @@ public class BoardController {
 		
 		
 		model.addAttribute("list",service.getList(cri));
-		model.addAttribute("pageNavi", new PageNavi(cri, service.getTotal()));
+		model.addAttribute("pageNavi", new PageNavi(cri, service.getTotal(cri)));
 		log.info("getList()================");
 		
 		return "/board/list_b";

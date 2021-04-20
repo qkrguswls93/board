@@ -14,7 +14,7 @@ public interface BoardMapper {
 	
 	public String getTime2();
 	
-	public List<BoardVo> getList(Criteria cri);
+	public List<BoardVo> getList(Criteria cri); //사용하기 위해 매개변수로 넣어준다-데이터 조회가능
 	
 	public int insertBoard(BoardVo vo); 
 	
@@ -25,5 +25,5 @@ public interface BoardMapper {
 	
 	public int delete(int bno);
 	
-	public int getTotal();
+	public int getTotal(Criteria cri);
 }

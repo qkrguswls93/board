@@ -13,10 +13,10 @@ public class PageNaviTest {
 	
 	@Test
 	public void pageNavi() {
-		Criteria cri = new Criteria();
-		cri.setPageNo(5);
+		Criteria cri = new Criteria();	//criteria 생성
+		cri.setPageNo(8);	//이거안하면 1-10으로 테스트됨
 		
-		PageNavi navi = new PageNavi(cri,150);
+		PageNavi navi = new PageNavi(cri,150);	//임의로 총게시물 150개로
 		
 		log.info(navi);
 	}

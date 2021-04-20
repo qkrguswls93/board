@@ -15,14 +15,37 @@
 		select * from
 		(select row_number() over(order by bno desc) row_num
   		  , tbl.*
-    		from tbl_board tbl)	
+    		from tbl_board tbl
+    		where 1=1 <!-- 조건은 있을수도 없을수도 검색조건의 타입과 키워드값에 의해 생성될수도안될수도 -->	
+    		<if test="type=='title' and keyword != ''">
+    			and title like '%' || #{keyword} || '%'
+    		</if>
+    		<if test="type=='content' and keyword != ''">
+    			and content like '%' || #{keyword} || '%'
+    		</if>
+    		<if test="type=='writer' and keyword != ''">
+    			and writer like '%' || #{keyword} || '%'
+    		</if>
+    		) 
     		where row_num between #{pageNo} * #{amount} - 9 and #{pageNo} * #{amount}
 	</select>
-	
+	<!-- 페이징 처리 -->
 	<select id="getTotal" resultType="int">
 	select COUNT(*) from tbl_board
+    		where 1=1
+    		<if test="type=='title' and keyword != ''">
+    			and title like '%' || #{keyword} || '%'
+    		</if>
+    		<if test="type=='content' and keyword != ''">
+    			and content like '%' || #{keyword} || '%'
+    		</if>
+    		<if test="type=='writer' and keyword != ''">
+    			and writer like '%' || #{keyword} || '%'
+    		</if>
+    		
 	
 	</select>
+	<!-- 게시글 등록 -->
 	<insert id="insertBoard">
 	
 		<selectKey keyProperty="bno" order="BEFORE" resultType="int">
@@ -32,17 +55,19 @@
 		insert into tbl_board (bno, title, content, writer, regdate)
 			values (#{bno}, #{title}, #{content}, #{writer}, sysdate)
 	</insert>
-	
+	<!-- 상세보기 -->
 	<select id="get" resultType="jmp.spring.vo.BoardVo">
 		select * from tbl_board where bno=#{bno}
 	</select>
 	
+	<!-- 수정하기 -->
 	<update id="update">
 		update tbl_board
 		set title=#{title},content=#{content},writer=#{writer},updatedate=sysdate
 		where bno=#{bno}
 	</update>
 	
+	<!-- 삭제하기 -->
 	<delete id="delete" parameterType="int">
 		DELETE from tbl_board
 			WHERE bno=#{bno}
