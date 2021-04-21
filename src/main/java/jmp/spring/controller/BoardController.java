@@ -21,16 +21,23 @@ public class BoardController {
 	BoardService service;
 	
 	@GetMapping("/board/delete")
-	public String deleteExe(BoardVo vo, RedirectAttributes rttr) {
+	public String deleteExe(Criteria cri, BoardVo vo, RedirectAttributes rttr) {
 		int res = service.delete(vo.getBno());
 		String resMsg = "";
 		if(res>0 ) {
 			resMsg=vo.getBno()+"번 게시글이 삭제되었습니다.";
+			rttr.addFlashAttribute("resMsg",resMsg);
+			rttr.addAttribute("pageNo", cri.getPageNo());
+			rttr.addAttribute("type", cri.getType());
+			rttr.addAttribute("keyword", cri.getKeyword());
+			
 			return "redirect:/board/list";
 		}else {
 			resMsg="삭제에 실패했습니다.";
-			rttr.addAttribute("bno",vo.getBno());
 			rttr.addFlashAttribute("resMsg",resMsg);
+
+			rttr.addAttribute("bno",vo.getBno());
+			
 			return "redirect:/board/get?bno=vo.getBno()";
 		}
 
@@ -38,7 +45,7 @@ public class BoardController {
 	
 	//수정하기
 	@PostMapping("/board/edit")
-	public String editExe(BoardVo vo, RedirectAttributes rttr) { //매개변수로 자동수집
+	public String editExe(Criteria cri, BoardVo vo, RedirectAttributes rttr) { //매개변수로 자동수집
 		
 		int res = service.update(vo);
 		String resMsg = "";
@@ -48,13 +55,17 @@ public class BoardController {
 			resMsg="수정을 실패했습니다.";
 		}
 		rttr.addAttribute("bno", vo.getBno());
+		rttr.addAttribute("pageNo", cri.getPageNo());
+		rttr.addAttribute("type", cri.getType());
+		rttr.addAttribute("keyword", cri.getKeyword());
+		
 		rttr.addFlashAttribute("resMsg",resMsg);
 		return "redirect:/board/get"; //수정 후 get으로 돌아간다. list로 보내려면 return "redirect:/board/list"로
 	}
 	
 	//상세화면
 	@GetMapping({"/board/get"})
-	public String get(BoardVo vo, Model model) {
+	public String get(Criteria cri, BoardVo vo, Model model) {
 		log.info("======="+vo.getBno());
 		//상세화면조회
 		log.info("======="+vo.getBno());	
@@ -64,7 +75,7 @@ public class BoardController {
 	}
 	
 	@GetMapping({"board/edit"})
-	public String edit(BoardVo vo, Model model) {
+	public String edit(Criteria cri, BoardVo vo, Model model) {
 		log.info("======="+vo.getBno());
 		//상세화면조회
 		log.info("======="+vo.getBno());	

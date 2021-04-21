@@ -10,11 +10,15 @@ public class Criteria {
 	String keyword;//검색키워드
 	
 	
+	
 	//초기화
-	public Criteria(
-			) {
+	public Criteria() {
 		this.pageNo = 1;
 		this.amount = 10;
+	}
+	public Criteria(int pageNo, int amount) {
+		this.pageNo = pageNo;
+		this.amount = amount;
 	}
 	
 }

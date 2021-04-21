@@ -56,6 +56,13 @@ function detail(bno){
                              </tr> 
                              </c:forEach>
                         
+                        	<c:if test="${list.size() == 0}">
+                        	<tr class="odd gradeX">
+                        	<td colspan='4'>
+                        	게시글이 존재하지 않습니다.
+                        	</td>
+                        	</tr>
+                        	</c:if>
                          </tbody>
                      </table>
                      
@@ -103,14 +110,14 @@ function detail(bno){
 				<div class="form-inline">
                     <select class="form-control" name=type>
                     
-                        <option value=title><c:if test="${pageNavi.cri.type == 'title' }"></c:if>제목</option>
+                        <option value=title><c:if test="${pageNavi.cri.type == 'title' }">selected</c:if>제목</option>
                         <option value=content selected><c:if test="${pageNavi.cri.type == 'content' }"></c:if>내용</option>
-                        <option value=writer><c:if test="${pageNavi.cri.type == 'writer' }"></c:if>작성자</option>
+                        <option value=writer><c:if test="${pageNavi.cri.type == 'writer' }">selected</c:if>작성자</option>
                        
                     </select>
 
 					<input class="form-control" name=keyword value=${pageNavi.cri.keyword }>
-                   <button type="submit" class="btn btn-default" >검색</button>
+                   <button type="button" onclick="page(1)" class="btn btn-default" >검색</button>
                          
   				</div>
 					</form>

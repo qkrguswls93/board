@@ -6,6 +6,11 @@
 if('${resMsg}'!=''){
 	alert('${resMsg}');
 }
+//상세보기 이동
+function detailBtn(url){
+	document.detailForm.action=url;
+	document.detailForm.submit();
+} 
 </script>
 
   <div id="page-wrapper">
@@ -41,10 +46,17 @@ if('${resMsg}'!=''){
                         <input readonly class="form-control" value="${vo.regdate }">
                     </div>
                     
-					<button type="button" class="btn btn-default" onclick="location.href='/board/list'">목록</button>
-					<button type="button" class="btn btn-default" onclick="location.href='/board/edit?bno=${vo.bno}'">수정</button>
-					<button type="button" class="btn btn-default" onclick="location.href='/board/delete?bno=${vo.bno}'">삭제</button>
+					<button type="button" onclick="detailBtn('/board/edit')" class="btn btn-default" >수정</button>
+					<button type="button" class="btn btn-default" onclick="detailBtn('/board/delete')">삭제</button>
+					<button type="button" class="btn btn-default" onclick="detailBtn('/board/list')">목록</button>
 				
+				<form method="get" name="detailForm">
+					<input type=hidden name=bno value=${vo.bno }>
+					<input type=hidden name=pageNo value=${criteria.pageNo }>
+					<input type=hidden name=type value=${criteria.type }>
+					<input type=hidden name=keyword value=${criteria.keyword }>
+				
+				</form>
                  </div>
                  <!-- /.panel-body -->
              </div>
