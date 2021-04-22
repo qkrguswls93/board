@@ -110,10 +110,9 @@ function detail(bno){
 				<div class="form-inline">
                     <select class="form-control" name=type>
                     
-                        <option value=title><c:if test="${pageNavi.cri.type == 'title' }">selected</c:if>제목</option>
-                        <option value=content selected><c:if test="${pageNavi.cri.type == 'content' }"></c:if>내용</option>
-                        <option value=writer><c:if test="${pageNavi.cri.type == 'writer' }">selected</c:if>작성자</option>
-                       
+                       <option value=title <c:if test="${pageNavi.cri.type == 'title'}">selected</c:if>>제목</option>                   
+                       <option value=content <c:if test="${pageNavi.cri.type == 'content'}">selected</c:if>>내용</option>                   
+                       <option value=writer <c:if test="${pageNavi.cri.type == 'writer'}">selected</c:if>>작성자</option>                   
                     </select>
 
 					<input class="form-control" name=keyword value=${pageNavi.cri.keyword }>

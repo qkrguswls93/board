@@ -20,6 +20,11 @@ public class BoardController {
 	@Autowired
 	BoardService service;
 	
+	@GetMapping("/board/RestTest")
+	public void restTest(){
+		
+	}
+	
 	@GetMapping("/board/delete")
 	public String deleteExe(Criteria cri, BoardVo vo, RedirectAttributes rttr) {
 		int res = service.delete(vo.getBno());
@@ -115,4 +120,8 @@ public class BoardController {
 		return "/board/list_b";
 	}
 	
+	@GetMapping("/board/reply")
+	public void reply() {
+		
+	}
 }
