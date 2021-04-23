@@ -36,7 +36,7 @@ public class ReplyServiceTest {
 	@Test
 	public void mapperInsertTest() {
 		ReplyVo vo = new ReplyVo();
-		vo.setBno(400);
+		vo.setBno(300);
 		vo.setReply("리플");
 		vo.setReplyer("작성자");;
 		

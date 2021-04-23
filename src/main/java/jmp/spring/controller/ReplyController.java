@@ -23,13 +23,6 @@ public class ReplyController {
 	@Autowired
 	ReplyService service;
 	
-	@GetMapping("/reply/get/{rno}")
-	public ReplyVo get(@PathVariable("rno") int rno) {
-		ReplyVo vo = service.get(rno);
-		
-		return vo;
-	}
-	
 	@GetMapping("/reply/list/{bno}")//bno값을 url로 받는다
 	public List<ReplyVo> getList(@PathVariable("bno") int bno) {
 		List<ReplyVo> list = service.getList(bno);
@@ -47,8 +40,10 @@ public class ReplyController {
 			map.put("result", "success");
 		else
 			map.put("result", "fail");
+		
 		return map;
 	}
+	
 	
 //	@Autowired
 //	BoardService service;

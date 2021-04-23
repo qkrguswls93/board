@@ -5,46 +5,53 @@
 <jsp:include page="/resources/header/header.jsp"/>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-<script src="/resources/js/reply.js" type="text/javascript"/>
+
+<<script src="/resources/js/reply.js" type="text/javascript">
+<!--
+
+//-->
+</script>
+
 <script type="text/javascript">
 $(document).ready(function(){
 	
-// 	//addReply 버튼을 클릭하면 모달창을 보여준다
-// 	$("#addReplyBtn").on("click",function(){
-// 		//초기화
-// 		$("#replyInsertBtn").show();
-// 		$("#reply").val("");
-// 		$("#replyer").val(" ");
-// 		$("#myModal").modal("show");
-// 	});
+	//addReply 버튼을 클릭하면 모달창을 보여준다
+	$("#addReplyBtn").on("click", function(){
+		$("#replyInsertBtn").show();
+		$("#reply").val("");
+		$("#reply").val("");
+		$("#myModal").modal("show");
+	});
 	
-// 	//저장버튼을 클릭하면 저장하고 모달창을 닫아준다
-// 	//모달창을 닫은후 
-// 	$("#replyInsert").on("click",function(){
-		
-// 		//리플작성
-// 		ajaxInsert();
-// 	})
+	//저장버튼을 클릭하면 저장하고 모달창을 닫아준다
+	//모달창을 닫은 후 리스트를 다시 조회해준다
+	$("#replyInsertBtn").on("click", function(){
 	
-// 	//리플 작성
-// 	//AjaxInsert();
-	//리플리스트 조회
-	getAjaxList();	
+		//리플작성
+	AjaxInsert();
+	});
+	
+	//목록조회
+	getAjaxList();
+	
 });
+
 /*
- * 리플 상세화면
+ * 리플 상세화면을 보여준다
  */
-// function replyDetail(){
-// 	$("#rno").val(rno);
-// 	$("#replyInsertBtn").hide();
-// 	$("#myModal").modal("show");
-// 	getAjax();
-// }
+function replyDetail(rno){
+	$("#rno").val(rno);
+	//버튼 숨김처리
+	$("#replyInsertBtn").hide();
+	$("#myModal").modal("show");
+	getAjax();
+	
+	
+}
+</script>
 
-<!-- </script> -->
-
-<!-- bno<input type="text" value="300" id="bno"><br> -->
-<!-- rno<input type="text" id="rno"><br>        -->
+bno<input type="text" value="300" id="bno"><br>
+rno<input type="text" id="rno"><br>
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
@@ -137,7 +144,7 @@ $(document).ready(function(){
                            </div>
                            <div class="modal-footer">
                                <button type="button" class="btn btn-default" data-dismiss="modal">cancle</button>
-                               <button type="button" class="btn btn-primary">save</button>
+                               <button type="button" class="btn btn-primary" id="replyInsertBtn">save</button>
                            </div>
                        </div>
                        <!-- /.modal-content -->

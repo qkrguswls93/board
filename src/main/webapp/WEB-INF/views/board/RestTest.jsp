@@ -33,7 +33,7 @@
 					tblContent += "<tr><td>" + item.reply + "</td><td>" + item.reply + "</td></tr>";
 				});
 				
-				tblContent += "<tr><td>" + item.reply + "</td><td>" + item.reply + "</td></tr>";
+				tblContent += "<tr><td>서버로부터</td><td>받아오기</td></tr>";
 				
 				$("#repleTbl").html(tblContent);
 			},
