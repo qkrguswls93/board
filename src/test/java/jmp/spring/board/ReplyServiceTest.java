@@ -26,6 +26,11 @@ public class ReplyServiceTest {
 	ReplyMapper mapper;
 	
 	@Test
+	public void getTotalTest() {
+		log.info(mapper.getTotal(300));
+	}
+	
+	@Test
 	public void mapperGetListTest() {
 		log.info(service.getList(300));
 	}

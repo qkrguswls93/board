@@ -23,6 +23,22 @@ $(document).ready(function(){
 		$("#myModal").modal("show");
 	});
 	
+	
+	/*
+	선택자
+	아이디:# 클래스:. 태크:태그
+	*/
+	
+	//삭제
+	$("#removeBtn").on("click", function(){
+		deleteAjax();
+	});
+	
+	//수정
+	$("#modifyBtn").on("click", function(){
+		updateAjax();
+	})
+	
 	//저장버튼을 클릭하면 저장하고 모달창을 닫아준다
 	//모달창을 닫은 후 리스트를 다시 조회해준다
 	$("#replyInsertBtn").on("click", function(){
@@ -42,16 +58,41 @@ $(document).ready(function(){
 function replyDetail(rno){
 	$("#rno").val(rno);
 	//버튼 숨김처리
-	$("#replyInsertBtn").hide();
+	//$("#replyInsertBtn").hide();
 	$("#myModal").modal("show");
-	getAjax();
+	getAjax();	
+}
+
+function replyPage(pageNavi){
+	var startPage = pageNavi.startPage;
+	var endPage = pageNavi.endPage;
+	//이전 페이지 다음 페이지
+	//pageNavi.prev;
+	//pageNavi.next;
+	pageContent = "";
+	if(pageNavi.prev){
+		pageContent += 
+					'<li class="page-item disabled">'
+	    		  + '<a class="page-link" href="#" tabindex="-1">Previous</a>'
+		    	  + '</li>';
+	}
+	//페이지 번호 생성
+	for(startPage;startPage <= endPage; startPage++){
+		pageContent += '<li class="page-item"><a class="page-link" href="#">1</a></li>'
+	}
 	
+	//다음 페이지 네비게이션으로 이동
+	if(pageNavi.next){
+		
+	}
 	
+	$(".pagination").html(pageContent);
+	
+	   
 }
 </script>
 
-bno<input type="text" value="300" id="bno"><br>
-rno<input type="text" id="rno"><br>
+
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
@@ -100,9 +141,17 @@ rno<input type="text" id="rno"><br>
 							      </div>
 							      <!-- /.panel .chat-panel -->
 							
-								<div class="panel-footer"></div>
+								<div class="panel-footer">
+								<nav aria-label="...">
+										  <ul class="pagination">
+										  
+									</ul>
+										</nav>
+								bno<input type="text" value="300" id="bno"><br>
+								rno<input type="text" id="rno"><br>
+								pageNo<input type="text" id="pageNo" value="1">
 							
-							
+								</div>
 									</div>
 							  </div>
 							  <!-- ./ end row -->
@@ -143,8 +192,11 @@ rno<input type="text" id="rno"><br>
 							</ul>
                            </div>
                            <div class="modal-footer">
+                               <button type="button" class="btn btn-warning" data-dismiss="modal" id="modifyBtn">Modify</button>
+                               <button type="button" class="btn btn-danger" data-dismiss="modal" id="removeBtn">Remove</button>
                                <button type="button" class="btn btn-default" data-dismiss="modal">cancle</button>
                                <button type="button" class="btn btn-primary" id="replyInsertBtn">save</button>
+                               
                            </div>
                        </div>
                        <!-- /.modal-content -->

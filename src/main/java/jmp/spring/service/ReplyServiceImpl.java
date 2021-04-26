@@ -16,32 +16,32 @@ public class ReplyServiceImpl implements ReplyService{
 
 	@Override
 	public int insert(ReplyVo vo) {
-		// TODO Auto-generated method stub
 		return mapper.insert(vo);
 	}
 
 	@Override
 	public int update(ReplyVo vo) {
-		// TODO Auto-generated method stub
 		return mapper.update(vo);
 	}
 
 	@Override
 	public int delete(int rno) {
-		// TODO Auto-generated method stub
 		return mapper.delete(rno);
 	}
 
 	@Override
 	public ReplyVo get(int rno) {
-		// TODO Auto-generated method stub
 		return mapper.get(rno);
 	}
 
 	@Override
 	public List<ReplyVo> getList(int bno) {
-		// TODO Auto-generated method stub
 		return mapper.getList(bno);
+	}
+
+	@Override
+	public int getTotal(int bno) {
+		return mapper.getTotal(bno);
 	}
 	
 }
