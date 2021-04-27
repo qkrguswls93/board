@@ -4,7 +4,7 @@
 function getAjaxList(){
 	
 	$.ajax({
-		url : '/reply/list/' + $("#bno").val() +'/' + $("#pageNo").val(),
+		url : '/reply/list/' + $("#bno").val() +'/' + $("#replyPageNo").val(),
 		method : 'get',
 		dataType : 'json',
 		
@@ -13,7 +13,7 @@ function getAjaxList(){
 			debugger;
 			var htmlContent = "";
 			
-			//리스트에 데이터가 0건이면 
+			//리스트에 데이터가 0건이면 메시지
 			if(data.list.length == 0){
 				htmlContent +=	"<li class='left clearfix'>"
 								+"<div>"
@@ -83,6 +83,7 @@ function AjaxInsert(){
 				//모달창을 닫기
 				$("#myModal").modal("hide");
 				
+				$("#replyPageNo").val("1");
 				//리스트 조회하기
 				getAjaxList();
 			} else{

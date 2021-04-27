@@ -11,6 +11,8 @@ function detailBtn(url){
 	document.detailForm.action=url;
 	document.detailForm.submit();
 } 
+
+
 </script>
 
   <div id="page-wrapper">
@@ -55,8 +57,15 @@ function detailBtn(url){
 					<input type=hidden name=pageNo value=${criteria.pageNo }>
 					<input type=hidden name=type value=${criteria.type }>
 					<input type=hidden name=keyword value=${criteria.keyword }>
-				
 				</form>
+
+					<!-- 댓글 -->
+					<jsp:include page="reply.jsp"/>
+					
+
+
+
+
                  </div>
                  <!-- /.panel-body -->
              </div>

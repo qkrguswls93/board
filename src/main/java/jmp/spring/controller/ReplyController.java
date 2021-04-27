@@ -80,7 +80,7 @@ public class ReplyController {
 		//페이징 처리
 		PageNavi pageNavi = new PageNavi(cri, service.getTotal(bno));
 		//리스트 조회
-		List<ReplyVo> list = service.getList(bno);
+		List<ReplyVo> list = service.getList(bno, cri);
 		
 		//결과를 맵에 담아 리턴
 		Map<String, Object> map = new HashMap<String, Object>();
