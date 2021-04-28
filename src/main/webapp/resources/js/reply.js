@@ -9,7 +9,7 @@ function getAjaxList(){
 		dataType : 'json',
 		
 		success : function(data, status, xhr){
-			console.log("data", data);
+			console.log("실행 결과 : 성공", data);
 			debugger;
 			var htmlContent = "";
 			
@@ -46,7 +46,7 @@ function getAjaxList(){
 		},
 				
 		error : function(xhr, status, error){
-			console.log("error", error);
+			console.log("실행 결과 : 실패", error);
 		},
 		});
 
@@ -144,12 +144,8 @@ function updateAjax(){
 		error : function(xhr, status, error){
 			console.log(error);
 		}
-			
-	
 	});
 }
-
-
 
 /*
  * 댓글 삭제
@@ -165,11 +161,10 @@ function deleteAjax(){
 		success : function(data){
 			console.log(data);
 			if(data.result == "success"){
+				console.log(data);
 				//모달창을 닫기
 				$("#myModal").modal("hide");
 				alert("삭제되었습니다.");
-			
-			getAjaxList();
 				
 				//리스트 조회하기
 				getAjaxList();
@@ -177,9 +172,6 @@ function deleteAjax(){
 				alert("삭제실패입니다.");
 				
 			}
-			
-			
-			
 		},
 		error : function(error){
 			console.log(error);
@@ -195,13 +187,11 @@ function deleteAjax(){
 function getAjax(){
 	
 	$.ajax({
-		url : '/reply/get/' +$("#rno").val(),
+		url : '/reply/get/'+$("#rno").val(),
 		method : 'get',
 		dataType : 'json',
-		
 		success : function(data, status){
-			concole.log(data);
-			
+			console.log(data);
 			$("#reply").val(data.reply);
 			$("#replyer").val(data.replyer);
 			
@@ -220,7 +210,7 @@ function commAjax(url, method, data,callback, error){
 			method : method,
 			dataType : 'json',
 			
-			//JSOM 형식으로 변환
+			//JSON 형식으로 변환
 			data : JSON.stringify(data),
 			contentType : 'application/json; charset=UTF-8',
 			

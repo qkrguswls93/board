@@ -4,14 +4,14 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
-<<script src="/resources/js/reply.js" type="text/javascript">
+<script src="/resources/js/reply.js" type="text/javascript">
 <!--
 
 //-->
 </script>
 
 <script type="text/javascript">
-$(document).ready(function(){
+$(document).ready(function(){ //ajax - rest방식으로
 	
 	//addReply 버튼을 클릭하면 모달창을 보여준다
 	$("#addReplyBtn").on("click", function(){	
@@ -63,12 +63,12 @@ function replyDetail(rno){
 	$("#rno").val(rno);
 	//버튼 숨김처리
 	$("#replyInsertBtn").hide();
-	$("#updateBtn").modal("show");
-	$("#removeBtn").modal("show");
+	$("#updateBtn").show();
+	$("#removeBtn").show();
 
 	//모달창 보여주기
 	$("#myModal").modal("show");
-	getAjax();	
+	getAjax();
 }
 
 function replyPage(pageNavi){
@@ -106,7 +106,7 @@ function replyPage(pageNavi){
 	
 	//다음 페이지 네비게이션으로 이동
 	if(pageNavi.next){
-		pageContent += '<li class="page-item" onclick=pageMove('+(startPage+1)+')>'
+		pageContent += '<li class="page-item" onclick=pageMove('+(startPage)+')>'
 	      			+ '<a class="page-link" href="#" aria-label="Next">'
 	        		+ '<span aria-hidden="true">&raquo;</span>'
 	        		+ '<span class="sr-only">Next</span>'
@@ -155,24 +155,18 @@ function pageMove(pageNo){
 							      <div class="panel-body">        
 							      
 							        <ul class="chat">
-										<li class='left clearfix' data-rno='"+list.rno+"'>
-										<div>
-											<div class='header'><strong class='primary-font'>[1] 홍길동</strong> 
-				    							<small class='pull-right text-muted'>12:00:00</small>
-				    						</div>
-				     						<p>수고가 많으십니다!</p>
-				     					</div>
-				     					</li>
+										
 							        </ul>
 							        <!-- ./ end ul -->
 							      </div>
 							      <!-- /.panel .chat-panel -->
 							
 								<div class="panel-footer">
+								
+									<!-- 페이징 -->
 								<nav aria-label="...">
 										  <ul class="pagination">
-										  
-									</ul>
+										  </ul>
 										</nav>
 										<!-- /페이징 -->
 								</div>

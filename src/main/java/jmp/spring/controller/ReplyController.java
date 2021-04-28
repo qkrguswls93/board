@@ -37,11 +37,11 @@ public class ReplyController {
 	public Map<String, String> update(@RequestBody ReplyVo vo) { //꼭 map으로 안해도 된다
 		log.info("==========/reply/update 시작");
 		
+		Map<String, String> map = new HashMap<String, String>();
 		//업데이트 로직 호출
 		int res = service.update(vo);
 		
 		//결과로 리턴해줄 맵 생성
-		Map<String, String> map = new HashMap<String, String>();
 
 		if(res>0)
 			map.put("result", "success");
@@ -68,7 +68,6 @@ public class ReplyController {
 	@GetMapping("/reply/get/{rno}")//bno값을 url로 받는다
 	public ReplyVo get(@PathVariable("rno") int rno) {
 		ReplyVo vo = service.get(rno);
-		
 		return vo;
 	}
 	
