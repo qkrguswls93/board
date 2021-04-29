@@ -26,4 +26,6 @@ public interface BoardMapper {
 	public int delete(int bno);
 	
 	public int getTotal(Criteria cri);
+	
+	public int boardBackup(int bno);
 }

@@ -13,4 +13,5 @@ public interface ReplyService {
 	public ReplyVo get(int rno);
 	public List<ReplyVo> getList(int bno, Criteria cri);
 	public int getTotal(int bno);
+
 }
