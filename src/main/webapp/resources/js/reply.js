@@ -191,13 +191,13 @@ function getAjax(){
 		method : 'get',
 		dataType : 'json',
 		success : function(data, status){
-			console.log(data);
+			console.log("gatAjax",data);
 			$("#reply").val(data.reply);
 			$("#replyer").val(data.replyer);
 			
 		},
 		error : function(xhr, status, error){
-			console.log(error);
+			console.log(data);
 		}
 	});
 }

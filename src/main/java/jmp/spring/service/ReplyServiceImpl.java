@@ -22,7 +22,7 @@ public class ReplyServiceImpl implements ReplyService{
 		int res = mapper.insert(vo);
 		
 		//댓글의 갯수는 댓글을 입력할때, 삭제할때 변경된다
-		//댓글의 갯수를 카운트 해서  tbl_board테이블의   replycnt칼럼에 update
+		//댓글의 갯수를 카운트 해서  tbl_board테이블의   replycnt칼럼(=tbl_board.replycnt)에 update
 		//갯수가 변경되는 게시글의 번호는 vo.getBno();
 		
 		mapper.updateReplyCnt(vo.getBno());

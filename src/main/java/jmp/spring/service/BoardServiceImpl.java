@@ -33,7 +33,7 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	@Transactional
 	public int update(BoardVo vo) {
-		//게시글이 수정시 백업테이블에 저장
+		//게시글이 수정시 원래 게시글이 백업테이블에 저장된 후 수정된다.
 		mapper.boardBackup(vo.getBno());
 		return mapper.update(vo);
 	}
