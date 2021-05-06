@@ -60,7 +60,22 @@ function getFileList(attachNo){
 			//result : List<attachFileVo>
 			var htmlContent = "";
 			$.each(result, function(index, vo){ //vo그냥 변수임 item으로 해도 됨
-				htmlContent += "<li>"+vo.fileName+"</li>";
+				//만약 이미지면 이미지를 보여주고  
+				var s_savePath = encodeURIComponent(vo.s_savePath);
+				var savePath = encodeURIComponent(vo.savePath);
+				console.log("인코딩전=======",vo.s_savePath);
+				console.log("인코딩후=======",savePath);
+				if(vo.fileType == "Y"){
+					//이미지 썸네일의 경로를 인코딩해서 서버에 보내기
+					//uploadpath경로의 일부를 전송위해 인코딩한다
+					//문자나 특수문자는 허용되는 방식으로 변환
+				htmlContent += "<li><a href=/download?fileName="+savePath+">"
+								+"<img src=/display?fileName="+s_savePath+"></a>"
+								+"<span onclick=attachFileDelete('"+vo.uuid+"','"+vo.attachNo+"') data-type='image'>X</span>"
+								+vo.fileName+"</li>";
+				}else{ //그 외의 파일은 파일리음을 출력
+					htmlContent += "<li><a href=/download?fileName="+savePath+">"+vo.fileName+"</a></li>";
+				}
 			});
 			$("#fileListView").html(htmlContent);
 			console.log(attachNo);
@@ -68,6 +83,23 @@ function getFileList(attachNo){
 		}				
 	});
 }
+
+ function attachFileDelte(uuid, attachNo){
+	 
+	 $.ajax({
+			url : '/attachFileDelete/'+uuid+'/'+attachNo,
+			method : 'get',
+
+			success : function(res){
+				console.log("delete", res);
+			},
+			error : function(){
+				console.log("error");
+			}
+		});
+	 console.log("func end");
+ }
+ 
 </script>
 </head>
 <body>

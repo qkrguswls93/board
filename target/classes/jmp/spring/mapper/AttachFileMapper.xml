@@ -21,4 +21,15 @@
 		(#{attachNo}, #{uuid}, #{uploadPath}, #{fileName}, #{fileType}, sysdate)
 	</insert>
 	
+	<delete id="delete">
+		delete tbl_attach
+		where attachno=#{attachNo} and uuid=#{uuid};
+	</delete>
+	<select id="get">		
+		select attachNo, uuid, uploadPath, fileName
+        , uploadpath || uuid || '_' || fileName as savePath
+        , uploadpath || 's_' || uuid || '_' || fileName as s_savePath
+		from tbl_attach
+		where attachNo=#{attachNo}
+	</select>
 </mapper>
