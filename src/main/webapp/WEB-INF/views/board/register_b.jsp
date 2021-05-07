@@ -3,7 +3,6 @@
 <%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="/resources/header/header.jsp"/>
 
-<form method="post" action="/board/register">
 
   <div id="page-wrapper">
       <div class="row">
@@ -23,6 +22,7 @@
 					<button type="button" class="btn btn-default" onclick="location.href='/board/list'">목록</button>
                  <!-- /.panel-heading -->
                  <div class="panel-body">
+<form method="post" action="/board/register">
                     <div class="form-group">
                         <label>제목</label>
                         <input class="form-control" value="${vo.title }" name=title>
@@ -35,8 +35,13 @@
                         <label>작성자</label>
                         <input class="form-control" name=writer value="${vo.writer }">
                     </div>
+              
                     
 					<button type="submit">등록</button>
+					
+					
+ </form>
+					
 				
                  </div>
                  <!-- /.panel-body -->
@@ -48,5 +53,4 @@
      
  </div>
  <!-- /#page-wrapper -->
- </form>
 <jsp:include page="/resources/header/bottom.jsp"/>

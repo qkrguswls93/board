@@ -5,6 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script type="text/javascript">
 	
@@ -65,15 +67,16 @@ function getFileList(attachNo){
 				var savePath = encodeURIComponent(vo.savePath);
 				console.log("인코딩전=======",vo.s_savePath);
 				console.log("인코딩후=======",savePath);
+				console.log(vo);
 				if(vo.fileType == "Y"){
 					//이미지 썸네일의 경로를 인코딩해서 서버에 보내기
 					//uploadpath경로의 일부를 전송위해 인코딩한다
 					//문자나 특수문자는 허용되는 방식으로 변환
 				htmlContent += "<li><a href=/download?fileName="+savePath+">"
 								+"<img src=/display?fileName="+s_savePath+"></a>"
-								+"<span onclick=attachFileDelete('"+vo.uuid+"','"+vo.attachNo+"') data-type='image'>X</span>"
-								+vo.fileName+"</li>";
-				}else{ //그 외의 파일은 파일리음을 출력
+								+"<span onclick=attachFileDelete('"+vo.uuid+"','"+vo.attachNo+"') data-type='image'>x</span>"
+								+"</li>";
+				}else{ //그 외의 파일은 파일이름을 출력
 					htmlContent += "<li><a href=/download?fileName="+savePath+">"+vo.fileName+"</a></li>";
 				}
 			});
@@ -84,14 +87,16 @@ function getFileList(attachNo){
 	});
 }
 
- function attachFileDelte(uuid, attachNo){
-	 
+ function attachFileDelete(uuid, attachNo){
+	
+	 console.log("attachNo", attachNo);
 	 $.ajax({
 			url : '/attachFileDelete/'+uuid+'/'+attachNo,
 			method : 'get',
 
 			success : function(res){
 				console.log("delete", res);
+				getFileList(attachNo);
 			},
 			error : function(){
 				console.log("error");
@@ -110,7 +115,7 @@ function getFileList(attachNo){
  	<input type='file' name='uploadFile' multiple>
  	<button type="button" id="uploadBtn">Ajax 업로드</button>
  <!-- 서버로부터 받아온 파일리스트를 출력 -->
- <div>
+ <div class="uploadResult">
  	<ul id = "fileListView">
  		<li>fileName</li>
  		<li>fileName</li>

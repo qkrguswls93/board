@@ -37,9 +37,11 @@ public class FileUploadAjaxController {
 	public AttachFileService service;
 	
 	@GetMapping("/attachFileDelete/{uuid}/{attachNo}")
-	public String delete(@PathVariable("uuid") String uuid,
-						@PathVariable("attachNo") int attachNo) {
+	public String delete(@PathVariable("uuid") String uuid, 
+						 @PathVariable("attachNo") int attachNo) {
+		
 		AttachFileVo vo = service.get(uuid, attachNo);
+		
 		
 		File file = new File(ROOT_DIR+vo.getSavePath());
 		if(file.exists()) 
@@ -57,18 +59,19 @@ public class FileUploadAjaxController {
 		return res>0?"success":"fail";
 	}
 	
-	@GetMapping("/download")
+	@GetMapping("/download") // /download?fileName=파일이름
 	public ResponseEntity<byte[]> download(String fileName) {
 		log.info("/download============fileName : " + fileName);
 		
 		File file = new File(ROOT_DIR+fileName);
+		log.info("파일여부======");
 		if(file.exists()) {
 			//파일을  responseentity 에 담아서 반환
 			try {
 				HttpHeaders headers = new HttpHeaders();
 				headers.add("Content-type", MediaType.APPLICATION_OCTET_STREAM_VALUE);
 				headers.add("Content-Disposition", "attachment;filename=\"" 
-				             + new String(fileName.getBytes("UTF-8"), "ISO-8859-1") + "\"");
+				             + new String(fileName.getBytes("UTF-8"), "ISO-8859-1") + "\""); //\는 문자이용하려고 쓰는거("")  new~이거는 인코딩처리임
 					
 				return new ResponseEntity<byte[]>(
 							FileCopyUtils.copyToByteArray(file),
@@ -113,6 +116,7 @@ public class FileUploadAjaxController {
 				return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 			}
 		}else {
+			log.info("====================" + file.toPath());
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
@@ -149,11 +153,12 @@ public class FileUploadAjaxController {
 				
 				//Mime 타입을 모를 경우=null반환(ex- sql파일)
 				String contentType = Files.probeContentType(saveFile.toPath());
-				
+				log.info("aaaa"+contentType);
 				 if(contentType != null && contentType.startsWith("image")) { 
-					 Thumbnails.of(saveFile).size(100, 100).toFile(ROOT_DIR + vo.getSavePath());
+					 Thumbnails.of(saveFile).size(100, 100).toFile(ROOT_DIR + vo.getS_savePath());
 					 vo.setFileType("Y"); 
 					 }
+				 log.info("aaaaa"+contentType);
 				 
 				//파일 정보를 DB에 저장
 				if(service.insert(vo)>0) {
