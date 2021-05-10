@@ -19,5 +19,7 @@ public class BoardVo {
 	String updatedate;
 	// 댓글수
 	String replycnt;
+	// 파일첨부
+	String attachNo;
 
 }

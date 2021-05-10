@@ -52,8 +52,8 @@
 			select SEQ_TBL_BOARD.nextval from dual
 		</selectKey>
 		
-		insert into tbl_board (bno, title, content, writer, regdate)
-			values (#{bno}, #{title}, #{content}, #{writer}, sysdate)
+		insert into tbl_board (bno, title, content, writer, regdate, attachNo)
+			values (#{bno}, #{title}, #{content}, #{writer}, sysdate, #{attachNo})
 	</insert>
 	<!-- 상세보기 -->
 	<select id="get" resultType="jmp.spring.vo.BoardVo">

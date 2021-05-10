@@ -1,14 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core" %>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
 <jsp:include page="/resources/header/header.jsp"/>
-
-<form method="post" action="/board/edit">
-	<input type=hidden name=pageNo value=${criteria.pageNo }>
-	<input type=hidden name=type value=${criteria.type }>
-	<input type=hidden name=keyword value=${criteria.keyword }>
-
-	<input type=text name=bno value=${vo.bno}>
+<script>
+$(document).ready(function(){
+	if('${vo.attachNo}' != ''){
+		
+	}
+});
+</script>
   <div id="page-wrapper">
       <div class="row">
          <div class="col-lg-12">
@@ -25,6 +27,12 @@
                  </div>
                  <hr>
 					<button type="button" class="btn btn-default" onclick="location.href='/board/list'">목록</button>
+<form method="post" action="/board/edit">
+	<input type=hidden name=pageNo value=${criteria.pageNo }>
+	<input type=hidden name=type value=${criteria.type }>
+	<input type=hidden name=keyword value=${criteria.keyword }>
+
+	<input type=text name=bno value=${vo.bno}>
                  <!-- /.panel-heading -->
                  <div class="panel-body">
                     <div class="form-group">
@@ -40,7 +48,10 @@
                         <input class="form-control" name=writer value="${vo.writer }">
                     </div>
                     
+                    <input>
 					<button type="submit">수정</button>
+ 				</form>
+ 					<jsp:include page="fileUpload.jsp"/>
 				
                  </div>
                  <!-- /.panel-body -->
@@ -52,5 +63,4 @@
      
  </div>
  <!-- /#page-wrapper -->
- </form>
 <jsp:include page="/resources/header/bottom.jsp"/>

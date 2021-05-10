@@ -34,7 +34,7 @@
 					
 				success : function(result){
 					console.log("uploadAjax result", result);
-					$("#attachNo").val(result.attachNo);
+					$("input[name=attachNo]").val(result.attachNo);
 					$("#uploadFile").val("");
 					//document/uploadForm/uploadFile.value=""; -> jquery 안쓸때
 					getFileList(result.attachNo);				
@@ -110,10 +110,11 @@ function getFileList(attachNo){
 <body>
 
  <form action="/uploadFormAction" method="post" enctype="multipart/form-data" name="uploadForm">
- 	
- attachNo :	<input type="text" name="attachNo" id="attachNo" value="0"><br>
- 	<input type='file' name='uploadFile' multiple>
- 	<button type="button" id="uploadBtn">Ajax 업로드</button>
+ 	<div id=fileInputArea>
+ 		attachNo :	<input type="text" name="attachNo" id="attachNo" value="0"><br>
+ 		<input type='file' name='uploadFile' multiple>
+ 		<button type="button" id="uploadBtn">Ajax 업로드</button>
+ 	</div>
  <!-- 서버로부터 받아온 파일리스트를 출력 -->
  <div class="uploadResult">
  	<ul id = "fileListView">

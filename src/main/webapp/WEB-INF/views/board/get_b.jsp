@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core" %>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
 <jsp:include page="/resources/header/header.jsp"/>
 <script type="text/javascript">
 if('${resMsg}'!=''){
@@ -11,6 +13,14 @@ function detailBtn(url){
 	document.detailForm.action=url;
 	document.detailForm.submit();
 } 
+
+$(document).ready(function(){
+		'${vo.attachNo}' != ''){
+		getFileList('${vo.attachNo}');
+		$("input[name=attachNo]").val('${atttachNo}');
+	}
+	$("#fileInputArea").remove();
+});
 
 
 </script>
@@ -58,7 +68,9 @@ function detailBtn(url){
 					<input type=hidden name=type value=${criteria.type }>
 					<input type=hidden name=keyword value=${criteria.keyword }>
 				</form>
-
+					<!-- 첨부파일 -->
+					<jsp:include page="fileUpload.jsp"/>
+					
 					<!-- 댓글 -->
 					<br>
 					<jsp:include page="reply.jsp"/>
