@@ -20,6 +20,11 @@ public class UserTest {
 	public UserMapper usermapper;
 	
 	@Test
+	public void getRoleTest() {
+		log.info("==========="+usermapper.getRole("user01"));
+	}
+
+	@Test
 	public void userTest() {
 		User user = new User();
 		user.setId("user01");
@@ -27,5 +32,6 @@ public class UserTest {
 		log.info("==========="+usermapper.login(user));
 		
 	}
+	
 	
 }
