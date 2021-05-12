@@ -13,4 +13,16 @@
 	<select id="getRole" resultType="String">
 		select role_id from users_role where id=#{id}
 	</select>
+	
+	<update id="updateSessionkey">
+		update users 
+    	set sessionkey=#{sessionkey}, sessionlimit=sysdate+7
+			where id=#{id}
+	</update>
+	
+	<select id="loginSessionkey" resultType="jmp.spring.vo.User">
+		select * from users
+		where sessionkey=#{sessionkey}
+		and sessionlimit > sysdate
+	</select>
 </mapper>

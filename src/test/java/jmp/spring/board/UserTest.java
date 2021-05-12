@@ -19,6 +19,18 @@ public class UserTest {
 	@Autowired
 	public UserMapper usermapper;
 	
+	
+	@Test
+	public void getupdateTest() {
+		User user = new User();
+		user.setSessionkey("user01_sesssionkey");
+		user.setId("user01");
+		
+		System.out.println("============"+usermapper.updateSessionkey(user));
+		
+		
+	}
+	
 	@Test
 	public void getRoleTest() {
 		log.info("==========="+usermapper.getRole("user01"));

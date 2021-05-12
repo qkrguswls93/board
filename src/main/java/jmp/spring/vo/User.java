@@ -16,6 +16,9 @@ public class User {
 	//권한리스트
 	List <String> role;
 	
+	String sessionkey;
+	String sessionlimit;
+	
 	/*
 	 * 권한의 여부 체크
 	 * @param role_id
@@ -23,7 +26,10 @@ public class User {
 	 */
 	//메소드 추가
 	public boolean hasRole(String role_id) { //list가 role을 가지고 있는지 없는지 
-		return role.contains(role_id);
+		if(role!=null) {
+			return role.contains(role_id);			
+		}
+		return false;
 	}
 	
 }

@@ -28,10 +28,22 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public List<String> getRole(String id) {
+	public int updateSessionkey(User user) {
 		// TODO Auto-generated method stub
-		return mapper.getRole(id);
+		return mapper.updateSessionkey(user);
 	}
+
+	@Override
+	public User loginSessionkey(String sessionkey) {
+		// TODO Auto-generated method stub
+		User user = mapper.loginSessionkey(sessionkey);
+		List<String> role = mapper.getRole(user.getId());
+		//유저 객체에 담아준다
+		user.setRole(role);
+		return user;
+	}
+
+	
 	
 	
 

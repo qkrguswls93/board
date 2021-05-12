@@ -4,7 +4,9 @@
 
 <form method="get" action="logout">
 	${msg}<br>
-	if(user != null)
 		<button type="submit">로그아웃</button>
-		로그인 사용자 : ${user}
+	로그인 사용자 : ${user}<br>
+	<%=session.getAttribute("user")%>
+	<br>
+	${sessionScope.user }
 </form>

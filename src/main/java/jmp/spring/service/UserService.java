@@ -7,8 +7,11 @@ import jmp.spring.vo.User;
 public interface UserService {
 
 	public User login(User user);
+		
+	public int updateSessionkey(User user);
 	
-	public List<String> getRole(String id);
+	public User loginSessionkey(String sessionkey);
+
 
 
 }

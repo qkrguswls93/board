@@ -55,7 +55,7 @@
                         <form role="form" action="/loginAction" method="post">
                             <fieldset>
                                 <div class="form-group">
-                                <p id=errorMsgArea>id/pw를 확인하세요</p>
+                                <p id=errorMsgArea></p>
                                     <input class="form-control" placeholder="id" name="id" type="id" autofocus value="user01">
                                 </div>
                                 <div class="form-group">
