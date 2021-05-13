@@ -19,14 +19,27 @@ public class UserTest {
 	@Autowired
 	public UserMapper usermapper;
 	
+	@Test
+	public void insertTest() {
+		User user = new User();
+		user.setId("insertid");
+		user.setPwd("pwd");
+		user.setName("name");
+		user.setEmail("email");
+		
+		System.out.println("============"+usermapper.insertUser(user));
+	}
+	
+	
 	
 	@Test
-	public void getupdateTest() {
+	public void userUpdataSessionkey() {
 		User user = new User();
 		user.setSessionkey("user01_sesssionkey");
 		user.setId("user01");
 		
 		System.out.println("============"+usermapper.updateSessionkey(user));
+		
 		
 		
 	}

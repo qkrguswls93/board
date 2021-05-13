@@ -30,6 +30,7 @@
   	 </beans:bean>
 	
 	<beans:bean id="authInterceptor" class="jmp.spring.interceptor.AuthInterceptor"></beans:bean>
+	
 	<beans:bean id="loginInterceptor" class="jmp.spring.interceptor.LoginInterceptor"></beans:bean>
 	
 	<interceptors>

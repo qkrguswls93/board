@@ -36,10 +36,13 @@ public class UserController {
 		//자동로그인쿠키를 제거
 		//로그아웃을하게되면 자동로그인 불가
 		Cookie loginCookie = WebUtils.getCookie(req, "loginCookie");
-		loginCookie.setMaxAge(0);
-		loginCookie.setPath("/");
-		
-		res.addCookie(loginCookie);
+		if(loginCookie != null) {
+			 
+			loginCookie.setMaxAge(0); //유효기간이 0이되면서 삭제된다
+			loginCookie.setPath("/");
+			
+			res.addCookie(loginCookie);
+		}
 		return "/login";
 	}
 	
@@ -62,6 +65,14 @@ public class UserController {
 		}
 	}
 	
+	@GetMapping("member")
+	public void member() {
+		
+	}
+	@PostMapping("/registerMember")
+	public void registerMember() {
+		//회원가입처리
+	}
 	
 	
 }

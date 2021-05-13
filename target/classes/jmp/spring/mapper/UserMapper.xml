@@ -14,6 +14,7 @@
 		select role_id from users_role where id=#{id}
 	</select>
 	
+	<!-- 로그인한 사용자의 세션키와 유효기간 -->
 	<update id="updateSessionkey">
 		update users 
     	set sessionkey=#{sessionkey}, sessionlimit=sysdate+7
@@ -25,4 +26,13 @@
 		where sessionkey=#{sessionkey}
 		and sessionlimit > sysdate
 	</select>
+	
+	<insert id="insertUser">
+		insert into  users(id, pwd, enabled, name, email)
+		values (#{id},#{pwd},1,#{name}, #{email})
+	</insert>
+	
+	<insert id="insertUserRole">
+		insert into users_role values (#{id}, #{role})
+	</insert>
 </mapper>

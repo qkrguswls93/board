@@ -52,23 +52,28 @@
                         <h3 class="panel-title">Please Sign In</h3>
                     </div>
                     <div class="panel-body">
-                        <form role="form" action="/loginAction" method="post">
+                        <form role="form" action="/registerMember" method="post">
                             <fieldset>
                                 <div class="form-group">
                                 <p id=errorMsgArea></p>
+                                <label>ID</label>
                                     <input class="form-control" placeholder="id" name="id" type="id" autofocus value="user01">
                                 </div>
                                 <div class="form-group">
+                                <label>PASSWORD</label>
                                     <input class="form-control" placeholder="Password" name="pwd" type="password" value="1234">
                                 </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input name="useCookie" type="checkbox" value="Remember Me">Remember Me
-                                    </label>
+                                <div class="form-group">
+                                <label>NAME</label>
+                                    <input class="form-control" placeholder="name" name="name">
                                 </div>
+                                <div class="form-group">
+                                <label>EMAIL</label>
+                                    <input class="form-control" placeholder="email" name="email" type="email">
+                                </div>
+                                
                                 <!-- Change this to a button or input when using this as a form -->
-                                <button type="submit" class="btn btn-lg btn-success btn-block">Login</button>
-                                <p><a href="/member">회원가입</a>&nbsp;&nbsp;<a href="/pwdSearch">비밀번호찾기</a></p>
+                                <button type="submit" class="btn btn-lg btn-success btn-block">회원가입</button>
                             </fieldset>
                         </form>
                     </div>

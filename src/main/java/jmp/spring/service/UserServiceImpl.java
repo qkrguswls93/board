@@ -43,6 +43,13 @@ public class UserServiceImpl implements UserService{
 		return user;
 	}
 
+	@Override
+	public int insertUser(User user) {
+		// TODO Auto-generated method stub
+		return mapper.insertUser(user);
+	}
+
+
 	
 	
 	
