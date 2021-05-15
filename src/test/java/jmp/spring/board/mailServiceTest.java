@@ -15,8 +15,6 @@ import lombok.extern.log4j.Log4j;
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
 public class mailServiceTest {
 	
-	@Autowired
-	Properties prop;
 	
 	@Autowired
 	MailService ms;
@@ -24,12 +22,10 @@ public class mailServiceTest {
 	@org.junit.Test
 	public void Test() {
 		
-		log.info("================" + prop);
-		log.info(prop.getProperty("mail.id"));
 		
 		log.info("================");
-		//¸ÞÀÏÀü¼ÛÅ×½ºÆ®
-		ms.welcomeMailSend();
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×½ï¿½Æ®
+		ms.passwordMailSend();
 		
 		log.info("================");
 	}

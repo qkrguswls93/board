@@ -20,6 +20,16 @@ public class UserTest {
 	public UserMapper usermapper;
 	
 	@Test
+	public void searchidTest() {
+		User user = new User();
+		
+		user.setName("고구마");
+		user.setEmail("potato@test.com");
+		System.out.println("============"+usermapper.SearchId(user));
+
+	}
+	
+	@Test
 	public void insertTest() {
 		User user = new User();
 		user.setId("insertid");

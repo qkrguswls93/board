@@ -36,10 +36,12 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
-		$("#errorMsgArea").text('${msg}');
+		alert(text('${msg}'));
+
 		
-	});
+	}); 
 </script>
+
 </head>
 
 <body>
@@ -49,26 +51,22 @@
             <div class="col-md-4 col-md-offset-4">
                 <div class="login-panel panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Please Sign In</h3>
+                        <h3 class="panel-title">ID찾기</h3>
                     </div>
                     <div class="panel-body">
-                        <form role="form" action="/loginAction" method="post">
+                        <form role="form" action="/findId" method="post">
                             <fieldset>
                                 <div class="form-group">
-                                <p id=errorMsgArea></p>
-                                    <input class="form-control" placeholder="id" name="id" type="id" autofocus value="user01">
+                                <label>NAME</label>
+                                    <input class="form-control" placeholder="name" name="name">
                                 </div>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="Password" name="pwd" type="password" value="1234">
+                                <label>EMAIL</label>
+                                    <input class="form-control" placeholder="email" name="email" type="email">
                                 </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input name="useCookie" type="checkbox" value="Remember Me">Remember Me
-                                    </label>
-                                </div>
+                                
                                 <!-- Change this to a button or input when using this as a form -->
-                                <button type="submit" class="btn btn-lg btn-success btn-block">Login</button>
-                                <p><a href="/member">회원가입</a>&nbsp;&nbsp;<a href="/SearchId">아이디찾기</a>&nbsp;&nbsp;<a href="/Searchpwd">비밀번호찾기</a></p>
+                                <button type="submit" class="btn btn-lg btn-success btn-block">아이디  찾기</button>
                             </fieldset>
                         </form>
                     </div>

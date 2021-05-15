@@ -26,7 +26,11 @@ public interface UserMapper {
 	
 	public int insertUserRole(@Param("id") String id, 
 							  @Param("role") String role);
+	
+	public User SearchId(User user);
+	
+	public User Searchpwd(User user);
 
-
+	public int Updatepwd(User user);
 	
 }

@@ -14,7 +14,11 @@ public interface UserService {
 
 	public int insertUser(User user);
 	
-
+	public User SearchId(User user);
+		
+	public User Searchpwd(User user);
+	
+	public int Updatepwd(User user);
 
 
 }

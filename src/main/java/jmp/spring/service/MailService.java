@@ -3,6 +3,7 @@ package jmp.spring.service;
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.Properties;
+import java.util.UUID;
 
 import javax.mail.Authenticator;
 import javax.mail.Message;
@@ -15,58 +16,55 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Component;
 
-import jdk.internal.org.jline.utils.Log;
-import lombok.Value;
-
-@Value
+@Component
 public class MailService {
 
-	@Autowired
-	Properties prop;
-	public void MailSend(String sender, String title, String contents) {
-		
-	}
 	
-	public void welcomeMailSend() {
-		// ¸ŞÀÏ ¼³Á¤ Á¤º¸
-//		Properties prop = System.getProperties();
-//		prop.put("mail.smtp.starttls.enable", "true"); // ·Î±×ÀÎ½Ã TLS¸¦ »ç¿ëÇÒ °ÍÀÎÁö ¼³Á¤
-//		prop.put("mail.smtp.ssl.trust", "smtp.gmail.com");	
-//		prop.put("mail.smtp.host", "smtp.gmail.com");// SMTP¼­¹ö
-//		prop.put("mail.smtp.auth", "true");// SMTP ¼­¹öÀÇ ÀÎÁõ »ç¿ë
-//		prop.put("mail.smtp.port", "587");// TLS Æ÷Æ®¹øÈ£= 587, SSL Æ÷Æ®¹øÈ£= 465
-//		
-		String mail_id = prop.getProperty("pjjjj865@gmail.com"); //¾ÆÀÌµğ
-		String mail_pw = prop.getProperty("saoyjaajmktzqwxg"); //¾Ûºñ¹ø
+	
+	public void passwordMailSend() {
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+		Properties prop = System.getProperties();
+		prop.put("mail.smtp.starttls.enable", "true"); // ï¿½Î±ï¿½ï¿½Î½ï¿½ TLSï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+		prop.put("mail.smtp.ssl.trust", "smtp.gmail.com");	
+		prop.put("mail.smtp.host", "smtp.gmail.com");// SMTPï¿½ï¿½ï¿½ï¿½
+		prop.put("mail.smtp.auth", "true");// SMTP ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+		prop.put("mail.smtp.port", "587");// TLS ï¿½ï¿½Æ®ï¿½ï¿½È£= 587, SSL ï¿½ï¿½Æ®ï¿½ï¿½È£= 465
 		
-		// ±¸±Û °èÁ¤ ÀÎÁõ¿ë ID/PW ¼¼ÆÃ
+		String mail_id = "pjjjj865@gmail.com"; //ï¿½ï¿½ï¿½Ìµï¿½
+		String mail_pw = "saoyjaajmktzqwxg"; //ï¿½Ûºï¿½ï¿½
+		
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ID/PW ï¿½ï¿½ï¿½ï¿½
 		Authenticator auth = new MailAuth(mail_id, mail_pw);
-		// ¼¼¼Ç ¹× ¸Ş¼¼Áö »ı¼º (ÇÁ·ÎÆÛÆ¼, ÀÎÁõ)
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ş¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¼, ï¿½ï¿½ï¿½ï¿½)
 		Session session = Session.getDefaultInstance(prop, auth);
 		MimeMessage msg = new MimeMessage(session);
 
 		try {
-			// º¸³»´Â ³¯Â¥ ÁöÁ¤
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Â¥ ï¿½ï¿½ï¿½ï¿½
 			msg.setSentDate(new Date());
-			// ¹ß¼ÛÀÚ ¼³Á¤ (¹ß¼ÛÀÚÀÇ ¸ŞÀÏ, ¹ß¼ÛÀÚ¸í)
-			msg.setFrom(new InternetAddress("pjjjj865@gmail.com", "¿À´Ã"));
-             // ¼ö½ÅÀÚ ¼³Á¤ 
-			// Message.RecipientType.TO : ¹Ş´Â »ç¶÷ 
+			// ï¿½ß¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½ß¼ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ß¼ï¿½ï¿½Ú¸ï¿½)
+			msg.setFrom(new InternetAddress("pjjjj865@gmail.com", "admin"));
+             // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 
+			// Message.RecipientType.TO : ï¿½Ş´ï¿½ ï¿½ï¿½ï¿½ 
 			InternetAddress to = new InternetAddress("pjjjj865@gmail.com");
 			msg.setRecipient(Message.RecipientType.TO, to);
 			
-            // ¸ŞÀÏ Á¦¸ñ
-			msg.setSubject("È¯¿µÇÕ´Ï´Ù.", "UTF-8");
-			// ¸ŞÀÏ ³»¿ë
-			msg.setText("°¡ÀÔÀ» ÃàÇÏµå¸³´Ï´Ù.\nÀÎÁõ¹øÈ£´Â 1234 ÀÔ´Ï´Ù.", "UTF-8");
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+			msg.setSubject("ë¹„ë°€ë²ˆí˜¸ë°œê¸‰ë©”ì¼ì…ë‹ˆë‹¤.", "UTF-8");
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			
-            // ¸ŞÀÏ ¹ß¼Û
+			String res = UUID.randomUUID().toString().substring(0,7);
+			msg.setText("ì„ì‹œë¹„ë°€ë²ˆí˜¸ëŠ” "+res+"ì…ë‹ˆë‹¤", "UTF-8");
+			
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½ß¼ï¿½
 			Transport.send(msg);
 
-		} catch (AddressException ae) {// ÁÖ¼Ò¸¦ ÀÔ·ÂÇÏÁö ¾Ê¾ÒÀ» °æ¿ì
+		} catch (AddressException ae) {// ï¿½Ö¼Ò¸ï¿½ ï¿½Ô·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 			System.out.println("AddressException : " + ae.getMessage());
-		} catch (MessagingException me) {// ¸Ş¼¼Áö¿¡ ÀÌ»óÀÌ ÀÖÀ» °æ¿ì
+		} catch (MessagingException me) {// ï¿½Ş¼ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 			System.out.println("MessagingException : " + me.getMessage());
 		} catch (UnsupportedEncodingException e) {
 			System.out.println("UnsupportedEncodingException : " + e.getMessage());
@@ -79,7 +77,7 @@ class MailAuth extends Authenticator {
 	PasswordAuthentication pa;
 	
 	public MailAuth(String mail_id, String mail_pw) {
-		// »ç¿ëÀÚ ÀÎÁõ Á¤º¸¸¦ ´ã¾Æ¼­ ¹İÈ¯
+		// ì‚¬ìš©ì ì¸ì¦Œ ì •ë³´ë¥¼ ë‹´ì•„ì„œ ë°˜í™˜
 		pa = new PasswordAuthentication(mail_id, mail_pw);
 	}
 	

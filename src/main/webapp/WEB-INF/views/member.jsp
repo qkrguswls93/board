@@ -57,11 +57,15 @@
                                 <div class="form-group">
                                 <p id=errorMsgArea></p>
                                 <label>ID</label>
-                                    <input class="form-control" placeholder="id" name="id" type="id" autofocus value="user01">
+                                    <input class="form-control" placeholder="id" name="id" type="id" autofocus value="user01"
+                                    pattern = "[0-9A-Za-z]{5,12}">
                                 </div>
                                 <div class="form-group">
                                 <label>PASSWORD</label>
-                                    <input class="form-control" placeholder="Password" name="pwd" type="password" value="1234">
+                                    <input class="form-control" placeholder="Password" name="pwd" type="password" value="1234"
+                                    pattern = "[0-9A-Za-z]{5,12}"
+                                    maxlength="12">
+                                
                                 </div>
                                 <div class="form-group">
                                 <label>NAME</label>

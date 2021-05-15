@@ -1,7 +1,9 @@
 eclipse.preferences.version=1
+encoding//src/main/java/jmp/spring/service/MailService.java=UTF-8
 encoding//src/main/resources/config.properties=UTF-8
 encoding//src/main/webapp/WEB-INF/views/board=UTF-8
 encoding//src/main/webapp/WEB-INF/views/board/list_b.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/home.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/login.jsp=UTF-8
+encoding//src/test/java/jmp/spring/board/mailServiceTest.java=UTF-8
 encoding/<project>=UTF-8
