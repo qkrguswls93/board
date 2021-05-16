@@ -21,8 +21,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class MailService {
-
-	
 	
 	public void passwordMailSend() {
 		// ���� ���� ����
@@ -49,7 +47,7 @@ public class MailService {
 			msg.setFrom(new InternetAddress("pjjjj865@gmail.com", "admin"));
              // ������ ���� 
 			// Message.RecipientType.TO : �޴� ��� 
-			InternetAddress to = new InternetAddress("pjjjj865@gmail.com");
+			InternetAddress to = new InternetAddress("nasajang2020@gmail.com");
 			msg.setRecipient(Message.RecipientType.TO, to);
 			
             // ���� ����

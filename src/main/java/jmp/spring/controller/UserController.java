@@ -129,7 +129,6 @@ public class UserController {
 	public String findpwd(User user, Model model) {	
 
 		 	try {
-		 	
 			if(user == user) {
 				model.addAttribute("msg", user.getEmail()+"로 임시비밀번호를 발급하였습니다.");
 				
