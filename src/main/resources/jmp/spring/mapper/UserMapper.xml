@@ -42,7 +42,7 @@
 	</select>
 	
 	<select id="Searchpwd" resultType="jmp.spring.vo.User">
-		 select pwd from users where id=#{id} and email=#{email}
+		 select pwd,id from users where id=#{id} and email=#{email}
 	</select>
 	
 	<update id="Updatepwd">

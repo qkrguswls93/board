@@ -22,7 +22,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class MailService {
 	
-	public void passwordMailSend() {
+	public String passwordMailSend() {
 		// ���� ���� ����
 		Properties prop = System.getProperties();
 		prop.put("mail.smtp.starttls.enable", "true"); // �α��ν� TLS�� ����� ������ ����
@@ -39,7 +39,7 @@ public class MailService {
 		// ���� �� �޼��� ���� (������Ƽ, ����)
 		Session session = Session.getDefaultInstance(prop, auth);
 		MimeMessage msg = new MimeMessage(session);
-
+		String res = "";
 		try {
 			// ������ ��¥ ����
 			msg.setSentDate(new Date());
@@ -47,19 +47,19 @@ public class MailService {
 			msg.setFrom(new InternetAddress("pjjjj865@gmail.com", "admin"));
              // ������ ���� 
 			// Message.RecipientType.TO : �޴� ��� 
-			InternetAddress to = new InternetAddress("nasajang2020@gmail.com");
+			InternetAddress to = new InternetAddress("pjjjj865@gmail.com");
 			msg.setRecipient(Message.RecipientType.TO, to);
 			
             // ���� ����
 			msg.setSubject("비밀번호발급메일입니다.", "UTF-8");
 			// ���� ����
 			
-			String res = UUID.randomUUID().toString().substring(0,7);
+			res = UUID.randomUUID().toString().substring(0,7);
 			msg.setText("임시비밀번호는 "+res+"입니다", "UTF-8");
 			
             // ���� �߼�
 			Transport.send(msg);
-
+			
 		} catch (AddressException ae) {// �ּҸ� �Է����� �ʾ��� ���
 			System.out.println("AddressException : " + ae.getMessage());
 		} catch (MessagingException me) {// �޼����� �̻��� ���� ���
@@ -67,6 +67,7 @@ public class MailService {
 		} catch (UnsupportedEncodingException e) {
 			System.out.println("UnsupportedEncodingException : " + e.getMessage());
 		}
+		return res;
 	}
 }
 

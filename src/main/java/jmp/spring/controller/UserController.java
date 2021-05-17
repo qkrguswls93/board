@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -129,11 +130,17 @@ public class UserController {
 	public String findpwd(User user, Model model) {	
 
 		 	try {
-			if(user == user) {
+		 	
+		 	User dbuser = service.Searchpwd(user); //내가 입력할user랑 dbuser가 같아야 한다.-비번을 찾아야 하니까 여기서 가져온다
+		 	System.out.println(user.getId()==dbuser.getId());
+		 	System.out.println(dbuser.getId().equals(user.getId()));
+			if(user.getId().equals(dbuser.getId())) { //입력할 값이랑 저장된 값이 같으면 조회한다.
 				model.addAttribute("msg", user.getEmail()+"로 임시비밀번호를 발급하였습니다.");
 				
-				  mailservice.passwordMailSend();
-								 
+				  String pwd = mailservice.passwordMailSend();
+				  BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(); //비번 암호화
+				user.setPwd(encoder.encode(pwd)); //암호화된 비번으로 인코딩
+				  service.Updatepwd(user); //비번 바꾸기
 				return "/login";
 				
 			}else {
