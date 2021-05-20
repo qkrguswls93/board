@@ -19,6 +19,9 @@ public interface UserService {
 	public User Searchpwd(User user);
 	
 	public int Updatepwd(User user);
+	
+	public User checkId(String id);
+
 
 
 }

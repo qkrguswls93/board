@@ -30,7 +30,7 @@
 	
 	<insert id="insertUser">
 		insert into  users(id, pwd, enabled, name, email)
-		values (#{id},#{pwd},1,#{name}, #{email})
+		values (#{id},#{pwd},1,#{name}, #{email})		
 	</insert>
 	
 	<insert id="insertUserRole">
@@ -48,4 +48,8 @@
 	<update id="Updatepwd">
 		update users set pwd = #{pwd} where id = #{id}
 	</update>
+	
+	<select id="checkId" resultType="jmp.spring.vo.User">
+        select * from users where id = #{id}
+	</select>
 </mapper>

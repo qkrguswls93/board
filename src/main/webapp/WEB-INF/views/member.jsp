@@ -36,9 +36,68 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
-		$("#errorMsgArea").text('${msg}');
+		$("#registerBtn").on("click", function(){	
+			let id = $("input[name=id]").val(); //input태그 중에서 속성값이 id인것 찾는거(name이 id인것 찾는거) ->id체크를 위해 가져온다 
+			if($.isEmptyObject(id)){ //object비어있는지 체크 
+				alert("id를 입력해주세요");
+				return;
+			}
+			//중복체크가 제대로 안된 경우 중복체크 메시지출력
+			//중복아이디면 중복검사 진행
+			//중복체크를 한 경우 가능한 아이디는 dataValue=true값을 입력
+			if(!$("input[name=id]").prop("dataValue")){
+				alert("id 중복검사를 해주세요");
+				return false;
+			}
+			
+		/* 	if(checkPassword()){
+				return false;
+			}; */
+			$("#registerForm").submit();
 		
 	});
+		
+		$("#idCheck").on("click",function(){
+			let id = $("input[name=id]").val();
+			if($.isEmptyObject(id)){
+			alert("id를 입력해주세요");
+			return;
+		}
+			//아이디값 변경 했을때
+			//초기화
+			$("input[name=id]").prop("dataValue", false);
+
+			//id가 등록이 되었는지 확인
+			
+		 	$.ajax({
+				url : '/checkId/'+id,
+				method : 'get',
+				dataType : 'json',
+				
+				success : function(data){
+					//등록 가능한 아이디
+					if(data){
+						alert("등록 가능한 아이디 입니다.");
+						
+						//등록 가능한 아이디인 경우 회원가입버튼 클릭시 중복체크 했는지 
+						//속성값을 추가
+						$("input[name=id]").prop("dataValue", true);
+						
+					//이미 등록된 아이디일때
+					}else {
+						alert("이미 등록된 아이디 입니다.");
+					}
+				},
+				error : function(data){
+						console.log('error');
+					
+				}
+			}); 
+			
+		
+		});
+		});
+	
 </script>
 </head>
 
@@ -52,13 +111,15 @@
                         <h3 class="panel-title">Please Sign In</h3>
                     </div>
                     <div class="panel-body">
-                        <form role="form" action="/registerMember" method="post">
+                        <form role="form" id="registerForm" action="/registerMember" method="post">
                             <fieldset>
                                 <div class="form-group">
                                 <p id=errorMsgArea></p>
                                 <label>ID</label>
-                                    <input class="form-control" placeholder="id" name="id" type="id" autofocus value="user01"
-                                    pattern = "[0-9A-Za-z]{5,12}">
+                                    <input class="form-control" placeholder="id" name="id" id="id"                                                                                      " autofocus required
+                                    pattern = "[0-9A-Za-z]{6,20}" autofocus required>
+                                    
+                                    <button type="button" class="form-control" id="idCheck">중복확인</button>
                                 </div>
                                 <div class="form-group">
                                 <label>PASSWORD</label>

@@ -33,4 +33,6 @@ public interface UserMapper {
 
 	public int Updatepwd(User user);
 	
+	public User checkId(String id);
+	
 }

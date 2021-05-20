@@ -88,6 +88,12 @@ public class UserServiceImpl implements UserService{
 		return mapper.Updatepwd(user);
 	}
 
+	@Override
+	public User checkId(String id) {
+		// TODO Auto-generated method stub
+		return mapper.checkId(id);
+	}
+
 	
 
 

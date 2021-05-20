@@ -20,6 +20,12 @@ public class UserTest {
 	public UserMapper usermapper;
 	
 	@Test
+	public void checkId() {
+		System.out.println(usermapper.checkId("user01"));
+	}
+	
+	
+	@Test
 	public void searchidTest() {
 		User user = new User();
 		

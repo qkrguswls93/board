@@ -10,7 +10,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.WebUtils;
 
@@ -78,6 +80,7 @@ public class UserController {
 	}
 	@PostMapping("/registerMember")
 	public String registerMember(User user) {
+
 		//회원가입처리
 		try {
 			//오류페이지이동
@@ -153,6 +156,21 @@ public class UserController {
 		}
 		
 		}
+	
+	@GetMapping("/checkId/{id}")
+	@ResponseBody
+	public boolean checkId(@PathVariable("id") String id) { //만약 string 으로 할거면 return "fail"/"success"이거로
+		//아이디 중복 체크
+		if(service.checkId(id) != null) {//path 에서 받은 id값
+			//아이디 있음
+			return false;
+		}else {
+			//아이디 없음
+			return true;
+		}
+		
+	}
+	
 	}
 	
 	
