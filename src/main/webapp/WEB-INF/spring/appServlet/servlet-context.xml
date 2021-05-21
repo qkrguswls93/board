@@ -32,6 +32,8 @@
 	<beans:bean id="authInterceptor" class="jmp.spring.interceptor.AuthInterceptor"></beans:bean>
 	
 	<beans:bean id="loginInterceptor" class="jmp.spring.interceptor.LoginInterceptor"></beans:bean>
+
+	<beans:bean id="menuInterceptor" class="jmp.spring.interceptor.MenuInterceptor"></beans:bean>
 	
 	<interceptors>
 		<interceptor>
@@ -41,6 +43,10 @@
 		<interceptor>
 			<mapping path="/loginAction"/>
 			<beans:ref bean="loginInterceptor"/>
+		</interceptor>
+		<interceptor>
+			<mapping path="/**"/>
+			<beans:ref bean="menuInterceptor"/>
 		</interceptor>
 	</interceptors>
 </beans:beans>

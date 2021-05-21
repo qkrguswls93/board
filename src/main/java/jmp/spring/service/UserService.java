@@ -2,6 +2,7 @@ package jmp.spring.service;
 
 import java.util.List;
 
+import jmp.spring.vo.MenuVo;
 import jmp.spring.vo.User;
 
 public interface UserService {
@@ -22,6 +23,6 @@ public interface UserService {
 	
 	public User checkId(String id);
 
-
+	public List<MenuVo> getMenu();
 
 }

@@ -7,6 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import jmp.spring.mapper.UserMapper;
+import jmp.spring.vo.MenuVo;
 import jmp.spring.vo.User;
 
 @Service
@@ -92,6 +93,12 @@ public class UserServiceImpl implements UserService{
 	public User checkId(String id) {
 		// TODO Auto-generated method stub
 		return mapper.checkId(id);
+	}
+
+	@Override
+	public List<MenuVo> getMenu() {
+		// TODO Auto-generated method stub
+		return mapper.getMenu();
 	}
 
 	

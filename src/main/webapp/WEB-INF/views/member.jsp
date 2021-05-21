@@ -36,6 +36,14 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
+		
+		$("input[name=id]").on(change,function(){
+			//중복체크 다시 진행하게 처리
+			$("input[name=id]").prop("dataValue",false);
+		});
+			
+		
+		
 		$("#registerBtn").on("click", function(){	
 			let id = $("input[name=id]").val(); //input태그 중에서 속성값이 id인것 찾는거(name이 id인것 찾는거) ->id체크를 위해 가져온다 
 			if($.isEmptyObject(id)){ //object비어있는지 체크 
