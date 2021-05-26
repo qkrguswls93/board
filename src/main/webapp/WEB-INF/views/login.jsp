@@ -36,9 +36,102 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
-		$("#errorMsgArea").text('${msg}');
+		
+		//아이디와 비번찾기 필드셋을 숨김처리
+		$("#searchId").hide();
+		$("#searchpwd").hide();
+		
+		//아이디찾기 버튼 눌렀을 때
+		$("#btnSearchId").on("click",function(){
+			console.log("btnSearchId","click");
+			
+			var idVo = {
+				name : $("#name").val(),
+				email : $("#idemail").val()
+			};
+			
+			console.log("idVo", idVo);
+			console.log("json형식", JSON.stringify(idVo));
+		
+			$.ajax({
+				url : '/searchId',
+				method : 'post',
+				dataType : 'json',
+				
+				data : JSON.stringify(idVo),
+				contentType : 'application/json; charset=UTF-8',
+				
+				success : function(data){ //data는 서버로부터 리턴받은 데이터의 이름
+					console.log("결과",data)
+					$("#errorMsgArea").html(data.msg);
+				},
+				
+				error : function(){
+					console.log("btnSearchId","ajax error")
+				},
+			});
+		});
+		//비번찾기 버튼 눌렀을 때
+		$("#btnSearchpwd").on("click",function(){
+			console.log("btnSearchpwd","click");
+			
+			var pwdVo = {
+					id : $("#id").val(),
+					email : $("#pwdemail").val()
+			};
+			
+			console.log("pwdVo", pwdVo);
+			console.log("json형식", JSON.stringify(pwdVo));
+			
+			$.ajax({
+				url : '/searchpwd',
+				method : 'post',
+				dataType : 'json',
+				
+				data : JSON.stringify(pwdVo),
+				contentType : 'application/json; charset=UTF-8',
+				
+				success : function(res){
+					console.log("결과",res)
+				},
+				
+				error : function(){
+					console.log("error")
+				},
+			});
+		});
+		
+		//$("#errorMsgArea").text('${msg}');
 		
 	});
+	
+	//아이디 찾기를 클릭했을때 아이디 찾기 화면을 영역에 보여준다.
+	function viewsearchId(){
+		
+		//해당 이름과 메일을 가진 사용자의 아이디 메시지로 출력
+		console.log("viewsearchId","실행");
+		$("#login").hide();
+		$("#searchpwd").hide();
+		$("#searchId").show();
+		
+		
+	}
+	function viewsearchpwd(){
+		
+		console.log("viewsearchpwd","실행");
+		$("#login").hide();
+		$("#searchId").hide();
+		$("#searchpwd").show();
+		
+	}
+	function viewlogin(){
+		
+		console.log("viewlogin","실행");
+		$("#login").show();
+		$("#searchId").hide();
+		$("#searchpwd").hide();
+		
+	}
 </script>
 </head>
 
@@ -53,7 +146,8 @@
                     </div>
                     <div class="panel-body">
                         <form role="form" action="/loginAction" method="post">
-                            <fieldset>
+                       
+                            <fieldset id="login">
                                 <div class="form-group">
                                 <p id=errorMsgArea></p>
                                     <input class="form-control" placeholder="id" name="id" type="id" autofocus value="user01">
@@ -61,15 +155,47 @@
                                 <div class="form-group">
                                     <input class="form-control" placeholder="Password" name="pwd" type="password" value="1234">
                                 </div>
-                                <div class="checkbox">
+                              <div class="checkbox">
                                     <label>
                                         <input name="useCookie" type="checkbox" value="Remember Me">Remember Me
                                     </label>
                                 </div>
                                 <!-- Change this to a button or input when using this as a form -->
-                                <button type="submit" class="btn btn-lg btn-success btn-block">Login</button>
-                                <p><a href="/member">회원가입</a>&nbsp;&nbsp;<a href="/SearchId">아이디찾기</a>&nbsp;&nbsp;<a href="/Searchpwd">비밀번호찾기</a></p>
+                                <button type="submit" class="btn btn-lg btn-success btn-block">Login</button>             
                             </fieldset>
+                            
+                            <!-- 아이디 찾기 -->
+                            <fieldset id="searchId">
+                                <div class="form-group">
+                                <p id=errorMsgArea></p>
+                                    <input class="form-control" placeholder="name" id="name" type="name" autofocus value="name">
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="idemail" id="idemail" value="a@naver.com">
+                                </div>
+                             
+                                <!-- Change this to a button or input when using this as a form -->
+                                <button type="button" id="btnSearchId" class="btn btn-lg btn-success btn-block">아이디찾기</button>
+                            </fieldset>
+                            
+                            <!-- 비밀번호 찾기 -->
+                            <fieldset id="searchpwd">
+                                <div class="form-group">
+                                <p id=errorMsgArea></p>
+                                    <input class="form-control" placeholder="id" id="id" type="id" autofocus value="user01">
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="pwdemail" id="pwdemail" value="a@naver.com">
+                                </div>
+                             
+                                <!-- Change this to a button or input when using this as a form -->
+                                <button type="button"id="btnSearchpwd" class="btn btn-lg btn-success btn-block">비밀번호 찾기</button>
+                            </fieldset>
+                            <p>
+                                <a href="#" onclick="viewlogin()">로그인</a>&nbsp;&nbsp;
+                                <a href="#" onclick="viewsearchId()">아이디찾기</a>&nbsp;&nbsp;
+                                <a href="#" onclick="viewsearchpwd()">비밀번호찾기</a>
+                            </p>
                         </form>
                     </div>
                 </div>

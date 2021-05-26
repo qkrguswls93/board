@@ -71,23 +71,24 @@ public class UserServiceImpl implements UserService{
 		return res;
 	}
 
-	@Override
-	public User SearchId(User user) {
-		// TODO Auto-generated method stub
-		return mapper.SearchId(user);
-	}
+	
+//	@Override
+//	public User SearchId(User user) {
+//		// TODO Auto-generated method stub
+//		return mapper.SearchId(user);
+//	}
 
-	@Override
-	public User Searchpwd(User user) {
-		// TODO Auto-generated method stub
-		return mapper.Searchpwd(user);
-	}
+//	@Override
+//	public User Searchpwd(User user) {
+//		// TODO Auto-generated method stub
+//		return mapper.Searchpwd(user);
+//	}
 
-	@Override
-	public int Updatepwd(User user) {
-		// TODO Auto-generated method stub
-		return mapper.Updatepwd(user);
-	}
+//	@Override
+//	public int Updatepwd(User user) {
+//		// TODO Auto-generated method stub
+//		return mapper.Updatepwd(user);
+//	}
 
 	@Override
 	public User checkId(String id) {
@@ -100,6 +101,32 @@ public class UserServiceImpl implements UserService{
 		// TODO Auto-generated method stub
 		return mapper.getMenu();
 	}
+
+	@Override
+	public String SearchId(User vo) {
+		// TODO Auto-generated method stub
+		return mapper.SearchId(vo);
+	}
+
+	@Override
+	public User Searchpwd(User vo) {
+		// TODO Auto-generated method stub
+		return mapper.Searchpwd(vo);
+	}
+
+	@Override
+	public int Updatepwd(User user) {
+		// TODO Auto-generated method stub
+		
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		user.setPwd(encoder.encode(user.getPwd())); //=String encoderPwd = encoder.encode(user.getPwd());
+													//user.setPwd(encodePwd)
+		return mapper.Updatepwd(user);
+	}
+
+	
+
+	
 
 	
 

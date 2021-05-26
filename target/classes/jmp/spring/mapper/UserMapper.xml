@@ -37,16 +37,25 @@
 		insert into users_role values (#{id}, #{role})
 	</insert>
 	
-	<select id="SearchId" resultType="jmp.spring.vo.User">
+	<!-- <select id="SearchId" resultType="jmp.spring.vo.User">
+		select id from users where name=#{name} and email=#{email}
+	</select> -->
+	<select id="SearchId" resultType="String">
 		select id from users where name=#{name} and email=#{email}
 	</select>
 	
-	<select id="Searchpwd" resultType="jmp.spring.vo.User">
+	<!-- <select id="Searchpwd" resultType="jmp.spring.vo.User">
 		 select pwd,id from users where id=#{id} and email=#{email}
+	</select> -->
+	<select id="Searchpwd" resultType="jmp.spring.vo.User">
+		 select * from users where id=#{id} and email=#{email}
 	</select>
 	
-	<update id="Updatepwd">
+	<!-- <update id="Updatepwd">
 		update users set pwd = #{pwd} where id = #{id}
+	</update> -->
+	<update id="Updatepwd">
+		update users set pwd = #{pwd} where id = #{id} and email = #{email}
 	</update>
 	
 	<select id="checkId" resultType="jmp.spring.vo.User">

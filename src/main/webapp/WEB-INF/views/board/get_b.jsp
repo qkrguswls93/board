@@ -15,7 +15,7 @@ function detailBtn(url){
 } 
 
 $(document).ready(function(){
-		'${vo.attachNo}' != ''){
+		if('${vo.attachNo}' != ''){
 		getFileList('${vo.attachNo}');
 		$("input[name=attachNo]").val('${atttachNo}');
 	}

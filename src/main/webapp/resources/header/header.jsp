@@ -287,8 +287,8 @@ test : ${sessionScope.menu }
                 <!-- 왼쪽 메뉴 네비 -->
                 
                     <ul class="nav" id="side-menu">
-                      <c:forEach items="${sessionScope.menu }" var="menu">
-                      <c:if test="${menu.level == 1 }">
+                      <c:forEach items="${sessionScope.menu }" var="menu"> <!-- for문 2번 도는데 같은 list내에서 불러오는 것에만 차이가 있다. -->
+                      <c:if test="${menu.level == 2 }">
                       <!-- 상위메뉴 -->
                         
                         <li>
@@ -296,7 +296,7 @@ test : ${sessionScope.menu }
                             
                             <!-- 하위메뉴 -->
                             <ul class="nav nav-second-level">
-                            	<c:forEach items="${sessionScope.menu }" var="menu2">
+                            	<c:forEach items="${sessionScope.menu }" var="menu2"> <!-- level2를 부를 때 up_menu랑 맞는지 -->
                             	<c:if test="${menu2.level==2 && menu2.up_menu_id == menu.menu_id}">
                                 <li>
                                     <a href="${menu2.url}">${menu2.title }</a>

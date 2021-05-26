@@ -60,6 +60,7 @@ public class MailService {
             // ���� �߼�
 			Transport.send(msg);
 			
+			
 		} catch (AddressException ae) {// �ּҸ� �Է����� �ʾ��� ���
 			System.out.println("AddressException : " + ae.getMessage());
 		} catch (MessagingException me) {// �޼����� �̻��� ���� ���

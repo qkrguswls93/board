@@ -1,5 +1,9 @@
 package jmp.spring.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -9,9 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.WebUtils;
@@ -96,66 +102,89 @@ public class UserController {
 			return "/error";
 		}
 	}
-	@GetMapping("/SearchId")
-	public void SearchId() {
-		
-	}
-	@PostMapping("/findId")
-	public String findId(User vo, Model model) {
-		//여기에 알럿이랑 구현하면됨
-		//일치하면 알럿으로아이디나오고로그인화면
-		//불일치하면 불일치알럿
-		User user = service.SearchId(vo);
-		try {
-		if(user == user) {
-		
-			model.addAttribute("msg", "아이디는 " +user.getId()+"입니다.");
-			model.addAttribute("user", user);
-			return "/login";
+	
+	@PostMapping("/searchId")
+	@ResponseBody
+	public Map<String, String> searchId(@RequestBody User vo) {
+		String id = service.SearchId(vo);
+		Map<String, String> res = new HashMap<String, String>();
+		if(StringUtils.isEmpty(id)) {
+			res.put("msg", "이름/이메일에 일치하는 아이디가 없습니다.");
 		}else {
-			//user객체를 세션에 담는다-로그인처리
-			model.addAttribute("msg", "이름/메일이 일치하지않습니다.");
-			return "/SearchId";
-			
+			res.put("mag", "아이디는 " +id+"입니다.");
 		}
-		}catch(Exception e) {
-			e.printStackTrace();
-			return "/error";
+		return res;
+	}
+	
+	@PostMapping("/searchpwd")
+	@ResponseBody //객체반환
+	public Map<String, String> searchpwd(@RequestBody User vo) {
+		Map<String, String> res = new HashMap<String, String>();
+		User user = service.Searchpwd(vo);
+		
+		if(user != null) {
+			//String pwd = UUID.randomUUID().toString().substring(0,7);
+			int updateRes = service.Updatepwd(user);
 			
-		}
-		
-	}
-	@GetMapping("/Searchpwd")
-	public void Searchpwd() {
-		
-	}
-	@PostMapping("/findpwd")
-	public String findpwd(User user, Model model) {	
-
-		 	try {
-		 	
-		 	User dbuser = service.Searchpwd(user); //내가 입력할user랑 dbuser가 같아야 한다.-비번을 찾아야 하니까 여기서 가져온다
-		 	System.out.println(user.getId()==dbuser.getId());
-		 	System.out.println(dbuser.getId().equals(user.getId()));
-			if(user.getId().equals(dbuser.getId())) { //입력할 값이랑 저장된 값이 같으면 조회한다.
-				model.addAttribute("msg", user.getEmail()+"로 임시비밀번호를 발급하였습니다.");
-				
-				  String pwd = mailservice.passwordMailSend();
-				  BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(); //비번 암호화
-				user.setPwd(encoder.encode(pwd)); //암호화된 비번으로 인코딩
-				  service.Updatepwd(user); //비번 바꾸기
-				return "/login";
-				
-			}else {
-				return "/findpwd";
+			if(updateRes>0) {
+				mailservice.passwordMailSend();
 			}
-		}catch(Exception e) {
-			e.printStackTrace();
-			return "/error";
 			
+		}else {
+			res.put("msg", "일치하는 사용자가 없습니다.");
 		}
 		
-		}
+		return res;
+	}
+	
+	/*
+	 * @GetMapping("/SearchId") public void SearchId() {
+	 * 
+	 * }
+	 * 
+	 * @PostMapping("/findId") public String findId(User vo, Model model) {
+	 * //여기에알럿이랑 구현하면됨 //일치하면 알럿으로아이디나오고로그인화면 //불일치하면 불일치알럿 User user =
+	 * service.SearchId(vo); try { if(user == user) {
+	 * 
+	 * model.addAttribute("msg", "아이디는 " +user.getId()+"입니다.");
+	 * model.addAttribute("user", user); return "/login"; }else { //user객체를
+	 * 세션에담는다-로그인처리
+	 * 
+	 * model.addAttribute("msg", "이름/메일이 일치하지않습니다."); return "/SearchId";
+	 * 
+	 * } }catch(Exception e) { e.printStackTrace(); return "/error";
+	 * 
+	 * } }
+	 */
+	
+	/*
+	 * @GetMapping("/Searchpwd") public void Searchpwd() {
+	 * 
+	 * }
+	 * 
+	 * @PostMapping("/findpwd") public String findpwd(User user, Model model) {
+	 * 
+	 * try {
+	 * 
+	 * User dbuser = service.Searchpwd(user); //내가 입력할user랑 dbuser가 같아야 한다.-비번을 찾아야
+	 * 하니까 여기서 가져온다 System.out.println(user.getId()==dbuser.getId());
+	 * System.out.println(dbuser.getId().equals(user.getId()));
+	 * if(user.getId().equals(dbuser.getId())) { //입력할 값이랑 저장된 값이 같으면 조회한다.
+	 * model.addAttribute("msg", user.getEmail()+"로 임시비밀번호를 발급하였습니다.");
+	 * 
+	 * String pwd = mailservice.passwordMailSend();
+	 *  BCryptPasswordEncoder encoder =
+	 * new BCryptPasswordEncoder(); //비번 암호화 
+	 * user.setPwd(encoder.encode(pwd));
+	 * //암호화된 비번으로 인코딩 service.Updatepwd(user); //비번 바꾸기 return "/login";
+	 * 
+	 * }else { return "/findpwd"; } }catch(Exception e) { e.printStackTrace();
+	 * return "/error";
+	 * 
+	 * }
+	 * 
+	 * }
+	 */
 	
 	@GetMapping("/checkId/{id}")
 	@ResponseBody

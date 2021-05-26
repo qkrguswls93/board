@@ -27,7 +27,7 @@ public class MenuInterceptor extends HandlerInterceptorAdapter{
 	 */
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-			throws Exception {
+			throws Exception { //컨트롤러 실행 전이기 때문에 여기에 만든다
 		
 		log.info("menuInterceptor=========================");
 		
